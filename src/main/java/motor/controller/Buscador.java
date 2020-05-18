@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package apirest;
+package motor.controller;
 
 /**
  *
  * @author nacho
  */
-public class Documentos {
+public class Buscador {
     
 }
