@@ -18,6 +18,9 @@ public class Documento
     private int id_documento;
     private String nombre;
 
+    public Documento() {
+    }
+
     public int getId_documento() 
     {
         return id_documento;
