@@ -10,6 +10,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,10 +36,12 @@ public class Posteo implements Serializable, DalEntity{
     
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_termino")
     private Termino termino;
     
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_documento")
     private Documento documento;
     
     private int tf;
