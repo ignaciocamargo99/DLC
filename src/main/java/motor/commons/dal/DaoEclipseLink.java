@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import motor.commons.exceptions.TechnicalException;
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 /**
  *
@@ -20,7 +19,7 @@ import javax.transaction.Transactional;
 public abstract class DaoEclipseLink<E extends DalEntity, K> implements Dao<E, K> 
 {
     //@Inject
-    @PersistenceContext(unitName="mensajesPU")
+    //@PersistenceContext(unitName="mensajesPU")
     protected EntityManager entityManager;
 
     private final Class<E> entityClass;
