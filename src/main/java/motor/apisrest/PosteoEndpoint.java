@@ -18,7 +18,8 @@ import motor.entities.Termino;
  * @author mateo
  */
 @Path("/posteos")
-public class Posteos {
+public class PosteoEndpoint {
+    
     @GET
     public Response obtenerTodas(){
        ArrayList<Posteo> salida = new ArrayList<>();

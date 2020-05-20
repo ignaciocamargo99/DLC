@@ -9,6 +9,6 @@ package motor.apisrest;
  *
  * @author nacho
  */
-public class Documentos {
+public class DocumentoEndpoint {
     
 }
