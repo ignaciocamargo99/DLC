@@ -7,8 +7,8 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
-            <property name="javax.persistence.jdbc.user" value="scott"/>
-            <property name="javax.persistence.jdbc.password" value="tiger"/>
+            <property name="javax.persistence.jdbc.user" value="dlc_tp"/>
+            <property name="javax.persistence.jdbc.password" value="dlc_tp"/>
         </properties>
     </persistence-unit>
 </persistence>
