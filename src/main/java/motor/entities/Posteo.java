@@ -5,18 +5,45 @@
  */
 package motor.entities;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import motor.commons.dal.DalEntity;
 
 /**
  *
  * @author mateo
  */
+@Entity
 @Table(name = "posteos")
-public class Posteo {
+@NamedQueries(
+    {
+        @NamedQuery(name = "posteos.findAll", query = "SELECT t FROM posteos t"),
+        @NamedQuery(name = "posteos.findById", query = "SELECT m FROM posteos m WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
+       
+    })
+public class Posteo implements Serializable, DalEntity{
+    /*
+    @Id
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_termino")
+    private Termino termino;
+    
+    @Id
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_documento")
+    private Documento documento;
+    */
+    
+    @Id
     private int id_termino;
+    @Id
     private int id_documento;
     private int tf;
-    
+        
     public Posteo(){
         this(0, 0, 0);
     }

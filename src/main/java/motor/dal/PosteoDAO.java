@@ -12,8 +12,8 @@ import motor.entities.Posteo;
  *
  * @author mateo
  */
-public class PosteoDAO /*extends DaoEclipseLink<Posteo, Integer>*/ {
+public class PosteoDAO extends DaoEclipseLink<Posteo, Integer> {
     public PosteoDAO(){
-        //super(Posteo.class);
+        super(Posteo.class);
     }    
 }
