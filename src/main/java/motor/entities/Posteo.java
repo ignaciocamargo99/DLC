@@ -21,7 +21,10 @@ import motor.commons.dal.DalEntity;
 @Table(name = "posteos")
 @NamedQueries(
     {
-        @NamedQuery(name = "posteos.findAll", query = "SELECT t FROM posteos t"),
+        @NamedQuery(name = "posteos.findAll", query = "SELECT t.id_termino, t.nombre, d.id_documento, d.nombre, p.tf\n" +
+                            "FROM posteos AS p\n" +
+                            "JOIN terminos AS t ON t.id_termino = p.id_termino\n" +
+                            "JOIN documentos AS d ON d.id_documento = p.id_documento"),
         @NamedQuery(name = "posteos.findById", query = "SELECT m FROM posteos m WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
        
     })
