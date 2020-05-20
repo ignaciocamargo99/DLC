@@ -5,10 +5,17 @@
  */
 package motor.dal;
 
+import motor.commons.dal.DaoEclipseLink;
+import motor.entities.Termino;
+
 /**
  *
  * @author mateo
  */
-public class TerminoDAO {
+public class TerminoDAO extends DaoEclipseLink<Termino,Integer> {
+    
+    public TerminoDAO() {
+        super(Termino.class);
+    }
     
 }
