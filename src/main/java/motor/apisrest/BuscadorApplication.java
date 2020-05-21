@@ -12,7 +12,6 @@ import javax.ws.rs.core.Application;
  *
  * @author mateo
  */
-@ApplicationPath("/")
 public class BuscadorApplication extends Application {
     
 }
