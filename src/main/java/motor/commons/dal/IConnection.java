@@ -4,22 +4,15 @@
  * and open the template in the editor.
  */
 package motor.commons.dal;
-import java.util.List;
+
+import java.sql.Connection;
+
 /**
  *
  * @author nacho
+ * Interfaz para obtener la conexion
  */
-public interface Dao<E extends DalEntity, K> 
+public interface IConnection 
 {
-    void update(E pData);
-
-    void delete(K pKey);
-    
-    E create(E pData);
-
-    E retrieve(K pKey);
-
-    List<E> findAll();
-    
+    Connection getConnection();
 }
-

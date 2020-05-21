@@ -7,6 +7,7 @@ package motor.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -23,27 +24,30 @@ import motor.commons.dal.DalEntity;
  */
 @Entity
 @Table(name = "posteos")
-@NamedQueries(
-    {
-        @NamedQuery(name = "posteos.findAll", query = "SELECT t.id_termino, t.nombre, d.id_documento, d.nombre, p.tf\n" +
-                            "FROM posteos AS p\n" +
-                            "JOIN terminos AS t ON t.id_termino = p.id_termino\n" +
-                            "JOIN documentos AS d ON d.id_documento = p.id_documento"),
-        @NamedQuery(name = "posteos.findById", query = "SELECT m FROM posteos m WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
+//@NamedQueries(
+//    {
+//        @NamedQuery(name = "posteos.findAll", query = "SELECT t.id_termino, t.nombre, d.id_documento, d.nombre, p.tf \n" +
+//                            "FROM Posteo p AS p \n" +
+//                            "JOIN Termino AS t ON t.id_termino = p.id_termino \n" +
+//                            "JOIN Documento AS d ON d.id_documento = p.id_documento"),
+//        @NamedQuery(name = "posteos.findById", query = "SELECT p.* FROM Posteo p WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
        
-    })
+//    })
 public class Posteo implements Serializable, DalEntity{
     
     @Id
+    //@Column(name = "id_termino")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_termino")
     private Termino termino;
     
     @Id
+    //@Column(name = "id_documento")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_documento")
     private Documento documento;
     
+    @Column(name = "tf")
     private int tf;
 
     public Posteo(){

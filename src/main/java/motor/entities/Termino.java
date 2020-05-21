@@ -27,14 +27,14 @@ import motor.commons.dal.DalEntity;
 @Table(name = "terminos")
 @NamedQueries(
     {
-        @NamedQuery(name = "terminos.findAll", query = "SELECT t FROM terminos t"),
-        @NamedQuery(name = "terminos.findById", query = "SELECT m FROM terminos m WHERE m.id_termino = :id_termino"),
+        @NamedQuery(name = "terminos.findAll", query = "SELECT t FROM Termino t"),
+        @NamedQuery(name = "terminos.findById", query = "SELECT t FROM Termino t WHERE t.id_termino = :id_termino"),
        
     })
 public class Termino implements Serializable, DalEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id_termino")
-    private long id_termino;
+    private Long id_termino;
     
     @Column(name = "nombre", length = 64)
     private String nombre;
@@ -46,7 +46,7 @@ public class Termino implements Serializable, DalEntity {
     private int max_tf;
     
     
-    private HashSet<Posteo> posteoSet;
+    //private HashSet<Posteo> posteoSet;
     
     //Constructores...
     
@@ -58,7 +58,7 @@ public class Termino implements Serializable, DalEntity {
         this.nombre= palabra;
         this.idf = nr;
         this.max_tf = maxtf;
-        this.posteoSet = posteoSet;
+        //this.posteoSet = posteoSet;
     }
     
     public Termino(long idPalabra, String palabra, int nr, int maxtf){
@@ -66,7 +66,7 @@ public class Termino implements Serializable, DalEntity {
         this.nombre= palabra;
         this.idf = nr;
         this.max_tf = maxtf;
-        this.posteoSet = new HashSet<>();
+        //this.posteoSet = new HashSet<>();
     }
     
     public Termino(long idPalabra, String palabra){
@@ -74,7 +74,7 @@ public class Termino implements Serializable, DalEntity {
         this.nombre = palabra;
         this.idf= 1;
         this.max_tf = 0;
-        this.posteoSet= new HashSet<>();
+        //this.posteoSet= new HashSet<>();
     }
 
     public long getId_termino() {

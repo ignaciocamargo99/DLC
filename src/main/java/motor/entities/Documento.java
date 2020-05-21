@@ -8,7 +8,12 @@ package motor.entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import motor.commons.dal.DalEntity;
 
 
@@ -20,16 +25,19 @@ import motor.commons.dal.DalEntity;
 @Table(name = "documentos")
 public class Documento implements Serializable, DalEntity
 {
-    // Definición de atributos y persistencia con BD...
+    private static final long serialVersionUID = 1L;
+    
+    // Definición de atributos y persistencia con BD
     @Id
+    @Column(name = "id_documento")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_documento;
+    private Long id_documento;
     
     @Column(name = "nombre")
     private String nombreDoc;
     
     
-    private HashSet<Posteo> documentoSet;
+    //private HashSet<Posteo> documentoSet;
     
     
     // Constructores
@@ -42,14 +50,14 @@ public class Documento implements Serializable, DalEntity
     {
         this.id_documento = id_documento;
         this.nombreDoc = nombreDoc;
-        this.documentoSet = documentoSet;
+        //this.documentoSet = documentoSet;
     }
     
     public Documento(long id_documento, String nombreDoc) 
     {
         this.id_documento = id_documento;
         this.nombreDoc = nombreDoc;
-        this.documentoSet = new HashSet<>();
+        //this.documentoSet = new HashSet<>();
     }
 
     // Getter y setters
@@ -61,9 +69,9 @@ public class Documento implements Serializable, DalEntity
         return nombreDoc;
     }
 
-    public HashSet<Posteo> getDocumentoSet() {
-        return documentoSet;
-    }
+    //public HashSet<Posteo> getDocumentoSet() {
+    //    return documentoSet;
+    //}
 
     public void setId_documento(long id_documento) {
         this.id_documento = id_documento;
@@ -73,14 +81,15 @@ public class Documento implements Serializable, DalEntity
         this.nombreDoc = nombreDoc;
     }
 
-    public void setDocumentoSet(HashSet<Posteo> documentoSet) {
-        this.documentoSet = documentoSet;
-    }
+    //public void setDocumentoSet(HashSet<Posteo> documentoSet) {
+    //    this.documentoSet = documentoSet;
+    //}
 
     // To string
     @Override
     public String toString() {
-        return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc + ", documentoSet=" + documentoSet + '}';
+        return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc;
+        //return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc + ", documentoSet=" + documentoSet + '}';
     }
 
     @Override
@@ -88,7 +97,7 @@ public class Documento implements Serializable, DalEntity
         int hash = 7;
         hash = 29 * hash + (int) (this.id_documento ^ (this.id_documento >>> 32));
         hash = 29 * hash + Objects.hashCode(this.nombreDoc);
-        hash = 29 * hash + Objects.hashCode(this.documentoSet);
+        //hash = 29 * hash + Objects.hashCode(this.documentoSet);
         return hash;
     }
     
@@ -111,9 +120,9 @@ public class Documento implements Serializable, DalEntity
         if (!Objects.equals(this.nombreDoc, other.nombreDoc)) {
             return false;
         }
-        if (!Objects.equals(this.documentoSet, other.documentoSet)) {
-            return false;
-        }
+        //if (!Objects.equals(this.documentoSet, other.documentoSet)) {
+        //    return false;
+        //}
         return true;
     }
 

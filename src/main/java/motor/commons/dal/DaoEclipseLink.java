@@ -16,7 +16,7 @@ import javax.transaction.Transactional;
  *
  * @author nacho
  */
-public abstract class DaoEclipseLink<E extends DalEntity, K> implements Dao<E, K> 
+public abstract class DaoEclipseLink<E extends DalEntity, K> implements IDao<E, K> 
 {
     //@Inject
     //@PersistenceContext(unitName="mensajesPU")
