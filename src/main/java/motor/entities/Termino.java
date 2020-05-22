@@ -27,11 +27,13 @@ import motor.commons.dal.DalEntity;
 @Table(name = "terminos")
 @NamedQueries(
     {
-        @NamedQuery(name = "terminos.findAll", query = "SELECT t FROM Termino t"),
-        @NamedQuery(name = "terminos.findById", query = "SELECT t FROM Termino t WHERE t.id_termino = :id_termino"),
+        @NamedQuery(name = "Termino.findAll", query = "SELECT t FROM Termino t"),
+        @NamedQuery(name = "Termino.findById", query = "SELECT t FROM Termino t WHERE t.id_termino = :id_termino"),
        
     })
-public class Termino implements Serializable, DalEntity {
+public class Termino implements Serializable, DalEntity 
+{
+    private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id_termino")
     private Long id_termino;

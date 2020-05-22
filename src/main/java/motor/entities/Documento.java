@@ -35,10 +35,8 @@ public class Documento implements Serializable, DalEntity
     
     @Column(name = "nombre")
     private String nombreDoc;
-    
-    
+   
     //private HashSet<Posteo> documentoSet;
-    
     
     // Constructores
     public Documento()
