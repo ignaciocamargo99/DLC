@@ -18,11 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import motor.commons.dal.DalEntity;
 
-/**
- *
- * @author mateo
- */
-//
 @Entity
 @Table(name = "terminos")
 @NamedQueries(

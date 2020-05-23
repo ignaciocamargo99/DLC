@@ -25,14 +25,14 @@ import motor.commons.dal.DalEntity;
 @Table(name = "posteos")
 @IdClass(PosteoPK.class)
 
-@NamedQueries(
-    {
-        @NamedQuery(name = "Posteo.findAll", query = "SELECT t.id_termino, t.nombre, d.id_documento, d.nombre, p.tf \n" +
-                            "FROM Posteo p AS p \n" +
-                            "JOIN Termino AS t ON t.id_termino = p.id_termino \n" +
-                            "JOIN Documento AS d ON d.id_documento = p.id_documento"),
-        @NamedQuery(name = "Posteo.findById", query = "SELECT p.* FROM Posteo p WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
-    })
+//@NamedQueries(
+//    {
+//        @NamedQuery(name = "Posteo.findAll", query = "SELECT t.id_termino, t.nombre, d.id_documento, d.nombre, p.tf \n" +
+//                            "FROM Posteo p AS p \n" +
+//                            "JOIN Termino AS t ON t.id_termino = p.id_termino \n" +
+//                            "JOIN Documento AS d ON d.id_documento = p.id_documento"),
+//        @NamedQuery(name = "Posteo.findById", query = "SELECT p.* FROM Posteo p WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
+//    })
 public class Posteo implements Serializable, DalEntity 
 {
     private static final long serialVersionUID = 1L;

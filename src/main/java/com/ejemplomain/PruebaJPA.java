@@ -1,5 +1,4 @@
 //
-//
 //package com.ejemplomain;
 //
 //import java.util.List;
@@ -8,6 +7,7 @@
 //import javax.persistence.EntityManagerFactory;
 //import javax.persistence.Persistence;
 //import javax.persistence.PersistenceContext;
+//import javax.persistence.PersistenceUnit;
 //import javax.persistence.Query;
 //import motor.entities.Documento;
 //import motor.entities.Posteo;
@@ -21,6 +21,7 @@
 //    // no deberia hacer falta las variables emf y manager con este @
 //    @PersistenceContext(unitName = "JPA_PU")
 //    //
+//    @PersistenceUnit(unitName = "JPA_PU")
 //    private static EntityManager manager;
 //    private static EntityManagerFactory emf;
 //    public static void main(String[] args) 
@@ -38,7 +39,7 @@
 //        
 //
 //        //Posteo e = new Posteo(1L, 1L, 34);
-//        Posteo e1 = new Posteo(1L, 6L, 34);
+//        Posteo e1 = new Posteo(1L, 1L, 34);
 //        manager.getTransaction().begin();
 //        manager.persist(e1);
 //        manager.getTransaction().commit();

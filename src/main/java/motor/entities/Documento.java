@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package motor.entities;
 
 import java.io.Serializable;
@@ -13,16 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import motor.commons.dal.DalEntity;
 
 
-/**
- *
- * @author nacho
- */
 @Entity 
 @Table(name = "documentos")
+@NamedQueries({
+                @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
+                @NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d WHERE d.id_documento = :id_documento"),
+})
 public class Documento implements Serializable, DalEntity
 {
     private static final long serialVersionUID = 1L;
