@@ -1,25 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package motor.commons.dal;
 
 import java.util.List;
+import javax.inject.Inject;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import motor.commons.exceptions.TechnicalException;
 import javax.transaction.Transactional;
-/**
- *
- * @author nacho
- */
+
 public abstract class DaoEclipseLink<E extends DalEntity, K> implements IDao<E, K> 
 {
     //@Inject
-    //@PersistenceContext(unitName="mensajesPU")
+    @PersistenceContext(unitName="JPA_PU")
     protected EntityManager entityManager;
 
     private final Class<E> entityClass;
@@ -119,7 +113,5 @@ public abstract class DaoEclipseLink<E extends DalEntity, K> implements IDao<E, 
             throw new TechnicalException(ex);
         }
 
-    }
-
-    
+    }   
 }
