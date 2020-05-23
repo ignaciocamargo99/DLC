@@ -35,7 +35,9 @@ public class DocumentoEndpoint
         List<Documento> documentos = documentoDAO.findAll();
         if(documentos.isEmpty())
         {
+            
             return Response.ok("No hay datos, cargue datos a su BD...").build();
+            
         }
         else
         {

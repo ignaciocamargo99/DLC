@@ -19,15 +19,15 @@ import motor.entities.Documento;
  */
 public class Indexador {
      private static String directorio = "documentos/DocumentosTP1/00ws110";
-     private EntityManager manager;
+     private static EntityManager manager;
     
-    private File[] getArchivosDesde(String dirName) {
+    private static File[] getArchivosDesde(String dirName) {
         File dir = new File(dirName);
         
         return dir.listFiles((dir1, filename) -> filename.endsWith(".txt"));
         //Lista los archivos que terminan en txt que estan dentroo de la carpeta representada por el objeto DIR de la clase FILE
     }
-    private Set<Documento> getDocEnCarpeta () throws FileNotFoundException{
+    private static Set<Documento> getDocEnCarpeta () throws FileNotFoundException{
         File[] files = getArchivosDesde("documentos/DocumentosTP1/");
         HashSet<Documento> documentos = new HashSet<>();
         for (File f : files) {
@@ -42,9 +42,10 @@ public class Indexador {
             Documento aux = new Documento(titulo, arch);
             documentos.add(aux);
             //Agregar a la BD el titulo ...
-            manager.getTransaction().begin();
-            manager.persist(aux);
-            manager.getTransaction().commit();
+           
+           manager.getTransaction().begin();
+           manager.persist(aux);
+           manager.getTransaction().commit();
             
                     
             System.out.println("titulo: " + titulo);
@@ -55,10 +56,10 @@ public class Indexador {
     }
     
     
-/*    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
             Set<Documento> doc = getDocEnCarpeta();
     }
-  */  
+
     
 
 }

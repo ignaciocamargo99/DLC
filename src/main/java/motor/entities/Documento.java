@@ -32,6 +32,8 @@ public class Documento implements Serializable, DalEntity
     
     @Column(name = "nombre")
     private String nombreDoc;
+    @Column(name="titulo")
+    private String titulo;
    
     //private HashSet<Posteo> documentoSet;
     
@@ -54,7 +56,13 @@ public class Documento implements Serializable, DalEntity
         this.nombreDoc = nombreDoc;
         //this.documentoSet = new HashSet<>();
     }
-
+    
+    public Documento(String titulo, String nombreDoc) 
+    {
+        this.titulo = titulo;
+        this.nombreDoc = nombreDoc;
+        //this.documentoSet = new HashSet<>();
+    }
     // Getter y setters
     public long getId_documento() {
         return id_documento;
@@ -90,7 +98,7 @@ public class Documento implements Serializable, DalEntity
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + (int) (this.id_documento ^ (this.id_documento >>> 32));
+        //hash = 29 * hash + (int) (this.id_documento ^ (this.id_documento >>> 32));
         hash = 29 * hash + Objects.hashCode(this.nombreDoc);
         //hash = 29 * hash + Objects.hashCode(this.documentoSet);
         return hash;
