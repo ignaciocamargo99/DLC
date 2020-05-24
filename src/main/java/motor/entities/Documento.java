@@ -19,7 +19,6 @@ import motor.commons.dal.DalEntity;
 @NamedQueries({
                 @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
                 @NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d WHERE d.id_documento = :id_documento"),
-
 })
 public class Documento implements Serializable, DalEntity
 {
@@ -33,8 +32,7 @@ public class Documento implements Serializable, DalEntity
     
     @Column(name = "nombre")
     private String nombreDoc;
-    
-    @Column(name = "titulo")
+    @Column(name="titulo")
     private String titulo;
    
     //private HashSet<Posteo> documentoSet;
@@ -59,14 +57,6 @@ public class Documento implements Serializable, DalEntity
         //this.documentoSet = new HashSet<>();
     }
     
-    public Documento(long id_documento, String nombreDoc, String titulo) 
-    {
-        this.id_documento = id_documento;
-        this.nombreDoc = nombreDoc;
-        this.titulo = titulo;
-        //this.documentoSet = new HashSet<>();
-    }
-    
     public Documento(String titulo, String nombreDoc) 
     {
         this.titulo = titulo;
@@ -86,15 +76,6 @@ public class Documento implements Serializable, DalEntity
     //    return documentoSet;
     //}
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-    
-
     public void setId_documento(long id_documento) {
         this.id_documento = id_documento;
     }
@@ -110,7 +91,7 @@ public class Documento implements Serializable, DalEntity
     // To string
     @Override
     public String toString() {
-        return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc + ", titulo=" + titulo;
+        return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc;
         //return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc + ", documentoSet=" + documentoSet + '}';
     }
 
@@ -136,13 +117,10 @@ public class Documento implements Serializable, DalEntity
             return false;
         }
         final Documento other = (Documento) obj;
-        if (this.id_documento != other.id_documento) {
+        /*if (this.id_documento != other.id_documento) {
             return false;
-        }
+        }*/
         if (!Objects.equals(this.nombreDoc, other.nombreDoc)) {
-            return false;
-        }
-        if (!Objects.equals(this.titulo, other.titulo)) {
             return false;
         }
         //if (!Objects.equals(this.documentoSet, other.documentoSet)) {
