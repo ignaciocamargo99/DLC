@@ -12,7 +12,7 @@ import motor.entities.Termino;
  *
  * @author mateo
  */
-public class TerminoDAO extends DaoEclipseLink<Termino,Integer> {
+public class TerminoDAO extends DaoEclipseLink<Termino,Long> {
     
     public TerminoDAO() {
         super(Termino.class);

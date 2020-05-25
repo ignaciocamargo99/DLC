@@ -4,15 +4,19 @@ package motor.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import motor.dal.DocumentoDAO;
-import motor.entities.Documento;
+import javax.inject.Inject;
+import motor.dal.*;
+import motor.entities.*;
+import motor.entities.Termino;
 
 public class Indexador {
-     private final String directorio = "C:\\Users\\nacho\\Desktop\\DLC\\DocumentosIndexados";
-
+     private final String directorio = "C:\\Users\\Lenovo\\Documents\\NetBeansProjects\\MotorBusqueda5\\DLC\\documentos\\DocumentosTP1\\";
+     
+     
     public Indexador() 
     {
         
@@ -25,7 +29,7 @@ public class Indexador {
         return dir.listFiles((dir1, filename) -> filename.endsWith(".txt"));
     }
 
-    public Set<Documento> getDocEnCarpeta (DocumentoDAO documentoDAO) throws FileNotFoundException
+    public Set<Documento> getDocEnCarpeta (DocumentoDAO documentoDAO, TerminoDAO terminoDAO, PosteoDAO posteoDAO) throws FileNotFoundException
     {
         File[] files = getArchivosDesde(directorio);
         HashSet<Documento> documentos = new HashSet<>();
@@ -53,14 +57,90 @@ public class Indexador {
                 Documento newInstance = documentoDAO.create(aux);
 
                 documentos.add(newInstance);
-
-                System.out.println(newInstance);
+                postearArchivo(newInstance, terminoDAO, posteoDAO);
+                //System.out.println(newInstance);
             } 
             else 
             {
                 System.out.println("...---...El archivo ya existe en la base de datos...---...");
+                //postearArchivo();
             }
+            
+            break;
         } 
         return documentos;
+    }
+    
+    
+    public void postearArchivo(Documento doc,TerminoDAO terminoDAO,PosteoDAO posteoDAO){
+        
+        File arch = new File(directorio + doc.getNombreDoc());
+        //System.out.println("ruta: " + arch.getAbsolutePath());        
+        try (Scanner sc = new Scanner(arch, "ISO-8859-1")) {
+            // El delimitador siguiente toma palabras con apóstrofe en medio
+            // (por ejemplo O'Higgings, didn't) que a nuestro criterio forman parte de la palabra.
+            sc.useDelimiter("'*[^\\p{IsAlphabetic}']+'*");
+            // Definimos una lista de terminos con posteos x documento
+            Hashtable<String, Termino> terminosDocumento = new Hashtable<String, Termino>();
+            Hashtable<String,Posteo > posteosDocumento = new Hashtable<>();
+            //key Integer: palabra del termino
+            //value Posteo: Posteo(con un tf y una referencia a un documento)
+            //Bucle por palabra
+            while (sc.hasNext()) {
+                String pal = sc.next().toLowerCase();  //Convertimos a minusculas
+                //System.out.println("termino: " + pal);
+                Termino termino = null;
+                if (!pal.equals("")) {
+                    //Controlo si ya lo agregué
+                    if (!terminosDocumento.containsKey(pal)) {
+                        //Aparece por primera vez en el documento,
+                        
+                      
+                        terminosDocumento.put(pal, new Termino(pal));
+                        termino = new Termino(pal);
+                        //Se agrego solo la palabra;
+                        Termino newInstance = terminoDAO.create(termino);
+                      //  terminosDocumento.put(pal, newInstance);
+                        
+                       // System.out.println(newInstance);
+                   }
+                    //Si ya esta agregado, debería aumentar la cant de veces que aparece en el documento...
+
+                    
+                    
+                    
+                    //Controlo si ya esta posteado...
+                    if (posteosDocumento.containsKey(pal)) {
+                        //Aumento la cant de veces que aparece en el doc
+                        posteosDocumento.get(pal).setTf(posteosDocumento.get(pal).getTf() + 1);
+                    } else {
+                        //Lo agrego a la lista...
+                        posteosDocumento.put(pal, new Posteo(doc.getId_documento(),termino.getId_termino(),1));
+                        //System.out.println("Agregado");
+                    }
+                
+                }
+            }
+            
+            
+            
+            long cantTerminosDoc = (posteosDocumento.size());
+            for (Termino termino : terminosDocumento.values()) {
+                //Sumo a cada termino su IDF uno,
+                termino.setId_termino(termino.getIdf()+1);
+                //Actualizo su maxTF
+                //Vocabulario.refreshMaxTf(pala, posteosDocumento.get(pala).getTf());
+            }
+            //Persistencia
+            for (Posteo posteo : posteosDocumento.values()){
+                Posteo newIns = posteoDAO.create(posteo);
+            }
+            
+        }catch (FileNotFoundException ex) {
+            System.out.println("Archivo inexistente.. " + ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
 }

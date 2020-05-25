@@ -8,19 +8,22 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import motor.controller.Indexador;
-import motor.dal.DocumentoDAO;
+import motor.dal.*;
 import motor.entities.Documento;
 
 @Path("/index")
 public class IndexEndpoint 
 {
     @Inject private DocumentoDAO documentoDAO;
+    @Inject private TerminoDAO terminoDAO;
+    @Inject private PosteoDAO posteoDAO;
     
     @GET
     public Response indexar() throws FileNotFoundException
     {
         Indexador indexador = new Indexador();
-        Set<Documento> docs = indexador.getDocEnCarpeta(documentoDAO);
+        Set<Documento> docs = indexador.getDocEnCarpeta(documentoDAO,terminoDAO,posteoDAO);
+        
         return Response.ok(docs).build();
     } 
 }

@@ -73,6 +73,12 @@ public class Termino implements Serializable, DalEntity
         this.max_tf = 0;
         //this.posteoSet= new HashSet<>();
     }
+    public Termino(String palabra){
+        this.id_termino = (long)-1;
+        this.nombre = palabra;
+        this.idf = 0;
+        this.max_tf = 0;
+    } 
 
     public long getId_termino() {
         return id_termino;

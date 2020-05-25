@@ -12,20 +12,28 @@ import java.util.*;
  * @author Lenovo
  */
 public class Vocabulario {
-    private Hashtable <String,Termino> terminos ;
+    private static Vocabulario ourInstance = new Vocabulario();
+    
+    public static Vocabulario getInstance() {
+        return ourInstance;
+    }
+    
+    private static Hashtable <String,Termino> terminos ;
 
-    public Hashtable<String, Termino> getTerminos() {
+    public static Hashtable<String, Termino> getTerminos() {
         return terminos;
     }
 
-    public void setTerminos(Hashtable<String, Termino> terminos) {
-        this.terminos = terminos;
+    public static void setTerminos(Hashtable<String, Termino> terminos) {
+        terminos = terminos;
     }
 
     public Vocabulario(Hashtable<String, Termino> terminos) {
-        this.terminos = terminos;
+        terminos = terminos;
     }
-
+    public Vocabulario(){
+        
+    }
     @Override
     public int hashCode() {
         int hash = 7;
@@ -33,12 +41,12 @@ public class Vocabulario {
         return hash;
     }
 
-    public synchronized boolean contains(Object value) {
-        return terminos.contains(value);
+    public static boolean contains(Object value) {
+        return getTerminos().containsKey(value);
     }
 
     public boolean containsValue(Object value) {
-        return terminos.containsValue(value);
+        return ourInstance.getTerminos().containsValue(value);
     }
 
     @Override
