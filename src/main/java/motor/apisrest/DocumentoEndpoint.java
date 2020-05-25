@@ -36,12 +36,12 @@ public class DocumentoEndpoint
         if(documentos.isEmpty())
         {
             
-            return Response.ok("No hay datos, cargue datos a su BD...").build();
+            return Response.ok("[No hay datos, cargue datos a su BD...]").build();
             
         }
         else
         {
-            return Response.ok(documentos + "\n Funcionando con JPA 'JPA_PU'y connection pool motorbusqueda").build();
+            return Response.ok(documentos).build();
         }           
     } 
 }
