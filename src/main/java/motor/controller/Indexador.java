@@ -14,8 +14,8 @@ import motor.entities.*;
 import motor.entities.Termino;
 
 public class Indexador {
-     private final String directorio = "C:\\Users\\Lenovo\\Documents\\NetBeansProjects\\MotorBusqueda5\\DLC\\documentos\\DocumentosTP1\\";
-     
+     private final String directorio = "C:\\Users\\Lenovo\\Documents\\NetBeansProjects\\MotorBusqueda5\\DLC\\documentos\\prueba\\";
+     private static Vocabulario voc = new Vocabulario();
      
     public Indexador() 
     {
@@ -66,7 +66,7 @@ public class Indexador {
                 //postearArchivo();
             }
             
-            break;
+            //break;
         } 
         return documentos;
     }
@@ -92,14 +92,16 @@ public class Indexador {
                 Termino termino = null;
                 if (!pal.equals("")) {
                     //Controlo si ya lo agregué
-                    if (!terminosDocumento.containsKey(pal)) {
+                    if (!voc.getTerminos().containsKey(pal)) {
                         //Aparece por primera vez en el documento,
                         
                       
                         terminosDocumento.put(pal, new Termino(pal));
+                        
                         termino = new Termino(pal);
                         //Se agrego solo la palabra;
                         Termino newInstance = terminoDAO.create(termino);
+                        voc.getTerminos().put(pal, newInstance);
                       //  terminosDocumento.put(pal, newInstance);
                         
                        // System.out.println(newInstance);
@@ -115,7 +117,9 @@ public class Indexador {
                         posteosDocumento.get(pal).setTf(posteosDocumento.get(pal).getTf() + 1);
                     } else {
                         //Lo agrego a la lista...
-                        posteosDocumento.put(pal, new Posteo(doc.getId_documento(),termino.getId_termino(),1));
+                  
+                        
+                        posteosDocumento.put(pal, new Posteo(doc.getId_documento(),voc.getTerminos().get(pal).getId_termino(),1));
                         //System.out.println("Agregado");
                     }
                 
@@ -123,11 +127,13 @@ public class Indexador {
             }
             
             
-            
+            //CORREGIR!!!!!!!!!!
             long cantTerminosDoc = (posteosDocumento.size());
             for (Termino termino : terminosDocumento.values()) {
                 //Sumo a cada termino su IDF uno,
-                termino.setId_termino(termino.getIdf()+1);
+                termino.setIdf(termino.getIdf()+1);
+                
+                //terminoDAO.update(termino);
                 //Actualizo su maxTF
                 //Vocabulario.refreshMaxTf(pala, posteosDocumento.get(pala).getTf());
             }

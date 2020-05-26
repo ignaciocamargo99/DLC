@@ -6,19 +6,20 @@
 package motor.entities;
 
 import java.util.*;
+import motor.dal.TerminoDAO;
 
 /**
  *
  * @author Lenovo
  */
 public class Vocabulario {
-    private static Vocabulario ourInstance = new Vocabulario();
+    //private static Vocabulario ourInstance = new Vocabulario();
     
-    public static Vocabulario getInstance() {
+    /*public static Vocabulario getInstance() {
         return ourInstance;
     }
-    
-    private static Hashtable <String,Termino> terminos ;
+    */
+    private static Hashtable <String,Termino> terminos = new Hashtable <String,Termino>();
 
     public static Hashtable<String, Termino> getTerminos() {
         return terminos;
@@ -32,7 +33,7 @@ public class Vocabulario {
         terminos = terminos;
     }
     public Vocabulario(){
-        
+        terminos = new Hashtable <String,Termino>();
     }
     @Override
     public int hashCode() {
@@ -46,7 +47,7 @@ public class Vocabulario {
     }
 
     public boolean containsValue(Object value) {
-        return ourInstance.getTerminos().containsValue(value);
+        return getTerminos().containsValue(value);
     }
 
     @Override
@@ -67,5 +68,11 @@ public class Vocabulario {
         return true;
     }
     
-    
+    //Para ver... 
+    public static void recuperarVocabulario(TerminoDAO term){
+        for (Termino t : term.findAll())
+        {
+            terminos.put(t.getNombre(),t);
+        }
+    }
 }
