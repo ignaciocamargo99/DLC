@@ -23,6 +23,7 @@ public class Resultado implements Comparable<Resultado>{
     
     public Resultado(String nomDoc, String termino, int peso) {
         this.nomDoc = nomDoc;
+        this.termino = new ArrayList();
         this.termino.add(termino);
         this.peso = peso;
     }
@@ -80,12 +81,12 @@ public class Resultado implements Comparable<Resultado>{
     @Override
     public int compareTo(Resultado x)
     {
-        return this.peso - x.peso;
+        return x.peso - this.peso;
     }
 
     @Override
     public String toString() {
-        return "Resultado{" + "nomDoc=" + nomDoc + ", termino=" + termino + ", peso=" + peso + '}';
+        return "Resultado{" + "nomDoc=" + nomDoc + ", termino=" + termino + ", peso=" + peso + '}' + '\n';
     }
 
     public void agregarTermino(String termino, int peso){
