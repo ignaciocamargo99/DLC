@@ -90,7 +90,11 @@ public class Resultado implements Comparable<Resultado>{
     }
 
     public void agregarTermino(String termino, int peso){
-        this.termino.add(termino);
+        if (!this.termino.contains(termino)){
+            this.termino.add(termino);
+            peso += 10;
+        }
+        
         this.acumularPeso(peso);
     }
     
