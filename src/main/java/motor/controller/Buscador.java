@@ -56,6 +56,8 @@ public class Buscador {
             
             //Realizar consula de posteos por Termino
             //llamar query...
+            
+            
             ArrayList posteos = new ArrayList();
             posteos.add("hola");
             posteos.add("hola");
@@ -67,31 +69,39 @@ public class Buscador {
             String a = "0";
             
             for (Object p : posteos) {
-                //comprobar si existe resultado para el documento del posteo i
-                Resultado aux = new Resultado((String) p, t, calcularPeso(1, 1));
-                
-                if (!resultados.isEmpty() && resultados.contains(aux)){
-                    //si existe calcular peso y usar metodo agregarTermino(termino, peso);
-                    resultados.get(resultados.indexOf(aux)).agregarTermino(aux.getTermino().get(0), aux.getPeso());
-                    
-                    a = "False";
-                    
-                } else {
-                    //sino calcular peso, crear nuevo resultado y agregar al heap
-                    resultados.add(aux);
-                    a = "True";
+                //supuestamente el max_tf sirve para descartar opciones de antemano y ahorrar procesamiento
+                if (/*(p.getTf/vocabulario.getMax_tf)>0.5*/true){
+                    //comprobar si existe resultado para el documento del posteo i
+                    Resultado aux;
+                    if (i%3 == 0){
+                        aux = new Resultado((String) p, "este no es t", calcularPeso(1, 1));
+                    } else {
+                         aux = new Resultado((String) p, t, calcularPeso(1, 1));
+                    }
+
+                    if (!resultados.isEmpty() && resultados.contains(aux)){
+                        //si existe calcular peso y usar metodo agregarTermino(termino, peso);
+                        resultados.get(resultados.indexOf(aux)).agregarTermino(aux.getTermino().get(0), aux.getPeso());
+
+                        a = "False";
+
+                    } else {
+                        //sino calcular peso, crear nuevo resultado y agregar al heap
+                        resultados.add(aux);
+                        a = "True";
+                    }
+
+                    System.out.println(i + a);
+                    i++;
                 }
-                
-                System.out.println(i + a);
-                i++;
+
+                Collections.sort(resultados);
+                /*
+                for (Resultado r : resultados){
+                    heap.add(r);
+                }
+                */
             }
-            
-            Collections.sort(resultados);
-            /*
-            for (Resultado r : resultados){
-                heap.add(r);
-            }
-            */
         }
         
         return resultados;

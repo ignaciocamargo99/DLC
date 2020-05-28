@@ -88,6 +88,15 @@ public class Documento implements Serializable, DalEntity
     //    this.documentoSet = documentoSet;
     //}
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
+
     // To string
     @Override
     public String toString() {
