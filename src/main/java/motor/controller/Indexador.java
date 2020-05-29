@@ -14,9 +14,9 @@ import motor.entities.*;
 import motor.entities.Termino;
 
 public class Indexador {
-     private final String directorio = "C:\\Users\\nacho\\Desktop\\DLC\\DocumentosIndexados\\";
+     private final String directorio = "C:\\Users\\Lenovo\\Documents\\NetBeansProjects\\MotorBusqueda5\\DLC\\documentos\\prueba\\";
      private static Vocabulario voc = new Vocabulario();
-     
+     private static boolean a = false;
     public Indexador() 
     {
         
@@ -66,7 +66,7 @@ public class Indexador {
                 //postearArchivo();
             }
             
-            break;
+            //break;
         } 
         return documentos;
     }
@@ -96,13 +96,13 @@ public class Indexador {
                         //Aparece por primera vez en el documento,
                         
                       
-                        terminosDocumento.put(pal, new Termino(pal));
+                        //terminosDocumento.put(pal, new Termino(pal));
                         
                         termino = new Termino(pal);
                         //Se agrego solo la palabra;
                         Termino newInstance = terminoDAO.create(termino);
                         voc.getTerminos().put(pal, newInstance);
-                      //  terminosDocumento.put(pal, newInstance);
+                        terminosDocumento.put(pal, newInstance);
                         
                        // System.out.println(newInstance);
                    }
@@ -129,18 +129,32 @@ public class Indexador {
             
             //CORREGIR!!!!!!!!!!
             long cantTerminosDoc = (posteosDocumento.size());
-            for (Termino termino : terminosDocumento.values()) {
+            for (String n : posteosDocumento.keySet()) {
                 //Sumo a cada termino su IDF uno,
-                termino.setIdf(termino.getIdf()+1);
+                //termino.setIdf(termino.getIdf()+1);
+                //voc.getTerminos().get(termino.getNombre()).setIdf(voc.getTerminos().get(termino.getNombre()).getIdf()+1);
+                //Ver como conviente a Long un INT
+                voc.addIdf(n);
+                //if (voc.getTerminos().contains)
+                //Termino t = terminoDAO.create(voc.getTerminos().get(n));
+                voc.getTerminos().put(n, voc.getTerminos().get(n));
+                voc.actualizarMaxTf(n, posteosDocumento.get(n).getTf());
                 
-                //terminoDAO.update(termino);
+                terminoDAO.update(voc.getTerminos().get(n));
+                
+                
+                //long id = (t.getId_termino());
+                //voc.getTerminos().get(termino.getNombre()).setId_termino(id);
+                //posteosDocumento.get(termino.getNombre()).setId_termino(id);
+                //posteoDAO.create(posteosDocumento.get(termino.getNombre()));
                 //Actualizo su maxTF
                 //Vocabulario.refreshMaxTf(pala, posteosDocumento.get(pala).getTf());
             }
             //Persistencia
-            for (Posteo posteo : posteosDocumento.values()){
+            for (Posteo posteo : posteosDocumento.values() ) {
+                
                 Posteo newIns = posteoDAO.create(posteo);
-            }
+          }
             
         }catch (FileNotFoundException ex) {
             System.out.println("Archivo inexistente.. " + ex.getMessage());

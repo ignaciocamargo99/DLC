@@ -75,4 +75,12 @@ public class Vocabulario {
             terminos.put(t.getNombre(),t);
         }
     }
+    public static void addIdf(String t)
+    {
+        getTerminos().get(t).setIdf(getTerminos().get(t).getIdf()+1);
+    }
+    public static void actualizarMaxTf(String t, int n)
+    {
+        getTerminos().get(t).actMax_tf(n);
+    }
 }

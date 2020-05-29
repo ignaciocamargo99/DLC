@@ -145,7 +145,12 @@ public class Termino implements Serializable, DalEntity
         }
         return true;
     }
-    
+    public void actMax_tf(int n){
+        if (n> max_tf)
+        {
+            max_tf =n;
+        }
+    }
     
     
 }

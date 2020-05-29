@@ -75,6 +75,11 @@ public class Posteo implements Serializable, DalEntity
         this.id_termino = id_termino;
         this.tf = tf;
     }
+    public Posteo (Long id_documento, int tf)
+    {
+        this.id_documento = id_documento;
+        this.tf = tf;
+    }
 
     public Long getId_documento() {
         return id_documento;
