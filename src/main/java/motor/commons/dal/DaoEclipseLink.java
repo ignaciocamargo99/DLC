@@ -98,13 +98,13 @@ public abstract class DaoEclipseLink<E extends DalEntity, K> implements IDao<E, 
         }
 
     }
-    public List<E> findByFilter(String filter)
+    public List<E> findByFilter(String filter, String value1)
     {
         try
         {
             String className = getEntityClass().getSimpleName();
             Query query = entityManager.createNamedQuery(className + ".findByFilter")
-                .setParameter(":filter", filter);
+                .setParameter(filter, value1);
 
             return query.getResultList();
         }

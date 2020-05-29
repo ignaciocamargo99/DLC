@@ -6,6 +6,7 @@
 package motor.apisrest;
 
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,6 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import motor.controller.Resultado;
+import motor.dal.PosteoDAO;
+import motor.entities.Posteo;
 
 /**
  *
@@ -25,6 +28,7 @@ import motor.controller.Resultado;
 public class BuscadorEndpoint {
     
     private Resultado res;
+    @Inject PosteoDAO posteoDAO;
     
     @PersistenceContext(unitName="JPA_PU")
     protected EntityManager entityManager;
@@ -50,5 +54,27 @@ public class BuscadorEndpoint {
             return Response.ok(resultados).build();
         }           
     }
+    
+    
+    @GET
+    @Path("/prueba")
+    @Produces("application/json")
+    public Response buscarPorID()
+    {
+        // Recordar respetar el nombre que se pone en el namedQuery despues de los dos puntos
+        List<Posteo> posts = posteoDAO.findByFilter("nombre", "project");
+        
+        if(posts.isEmpty())
+        {
+            return Response.ok("No hay nada por aca").build();
+            
+        }
+        else
+        {
+            return Response.ok(posts).build();
+        }           
+    }
+    
+    
     
 }
