@@ -3,137 +3,63 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <style>@import "compass/css3";
-
-            /***********************
-             * Essential Structure *
-             ***********************/
-            .flexsearch--wrapper {
-                    height: auto;
-                    width: auto;
-                    max-width: 100%;
-                    overflow: hidden;
-                    background: transparent;
-                    margin: 0;
-                    position: static;
-            }
-
-            .flexsearch--form {
-                    overflow: hidden;
-                    position: relative;
-            }
-
-            .flexsearch--input-wrapper {
-                    padding: 0 66px 0 0; /* Right padding for submit button width */
-                    overflow: hidden;
-            }
-
-            .flexsearch--input {
-              width: 100%;
-            }
-
-            /***********************
-             * Configurable Styles *
-             ***********************/
-            .flexsearch {
-              padding: 0 25px 0 200px; /* Padding for other horizontal elements */
-            }
-
-            .flexsearch--input {
-              -webkit-box-sizing: content-box;
-                    -moz-box-sizing: content-box;
-                    box-sizing: content-box;
-                    height: 60px;
-              padding: 0 46px 0 10px;
-                    border-color: #888;
-              border-radius: 35px; /* (height/2) + border-width */
-              border-style: solid;
-                    border-width: 5px;
-              margin-top: 15px;
-              color: #333;
-              font-family: 'Helvetica', sans-serif;
-                    font-size: 26px;
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-            }
-
-            .flexsearch--submit {
-              position: absolute;
-                    right: 0;
-                    top: 0;
-                    display: block;
-                    width: 60px;
-                    height: 60px;
-              padding: 0;
-              border: none;
-                    margin-top: 20px; /* margin-top + border-width */
-              margin-right: 5px; /* border-width */
-                    background: transparent;
-              color: #888;
-              font-family: 'Helvetica', sans-serif;
-              font-size: 40px;
-              line-height: 60px;
-            }
-
-            .flexsearch--input:focus {
-              outline: none;
-              border-color: #333;
-            }
-
-            .flexsearch--input:focus.flexsearch--submit {
-                    color: #333; 
-            }
-
-            .flexsearch--submit:hover {
-              color: #333;
-              cursor: pointer;
-            }
-
-            ::-webkit-input-placeholder {
-                    color: #888;  
-            }
-
-            input:-moz-placeholder {
-              color: #888
-            }
-
-
-            /****************
-             * Pretify demo *
-             ****************/
-            .h1 {
-              float: left;
-              margin: 25px;
-              color: #333;
-              font-family: 'Helvetica', sans-serif;
-              font-size: 45px;
-              font-weight: bold;
-              line-height: 45px;
-              text-align: center;
-            }
-        </style>
-        <script type="text/javascript" src="jquery-3.5.1.js">
-
-//++++++++++++++++++++++inserte codigo javascript o jquery aquí++++++++++++++++++++++
-
-
-        </script>
+        <!-- CSS only -->
+        <link rel="stylesheet" href="css/all.css">
+        <link rel="stylesheet" href="css/principal.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+        
     </head>
     <body>
-        <h1 class="h1">Motor de busqueda DLC</h1>
-        <div class="flexsearch">
-                <div class="flexsearch--wrapper">
-                        <form class="flexsearch--form" action="#" method="post">
-                                <div class="flexsearch--input-wrapper"  id="search">
-                                        <input class="flexsearch--input" type="search" placeholder="search" id="tags">
-                                </div>
-                                <input class="flexsearch--submit" type="submit" id="sub" value="&#10140;"/>
-                        </form>
+        <!-- Barra superior -->
+        <header class="navbar navbar-expand flex-row navbar-dark bg-dark">
+            <div class="navbar navbar-dark">
+                <a href="#" class="navbar-brand">Diseño de Lenguajes de Consulta</a>
+            </div>
+        </header>
+        
+        <div ng-controller="busqueda_controller" class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-12">
+                    <h1 class="text-center mt-4 mb-4" id="paginaTitulo">Motor de Búsqueda</h1>
                 </div>
-        </div>
-        <h3>Tomo los cambiosq</h3>
-        <div id="resultado-busqueda">
+                <div class="col-6">
+                    <form name="frm_busqueda">
+                        <div class="input-group">
+                            <input type="text"
+                                   ng-model="stringBusqueda"
+                                   name="stringBusqueda"
+                                   required class="form-control mr-sm-2" 
+                                   ng-minlength="1" placeholder="Buscar" />
+                            <button ng-click="buscar(stringBusqueda)"; class="btn btn-primary" ng-disabled="frm_busqueda.$invalid"><i class="fa fa-search"></i> Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <p />
+            <div id="container_results">
+                <div class="row justify-content-md-center" ng-repeat="results in container_results">
+                    <div class="col-12">
+                        <div class="flex-column">
+                            <ul>
+                                <li class="list-group-item list-group-item-secondary"><strong>Titulo: </strong></li>
+                                <li class="list-group-item"><strong>Nombre del documento: </strong></li>
+                                <li class="list-group-item"><strong>Peso: </strong></li>
+                                <li class="list-group-item"><strong>Descarga: </strong></li>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+                    
+                
+                
+            </div>
+            
+            
             
         </div>
+
+        
+
+        
     </body>
 </html>
