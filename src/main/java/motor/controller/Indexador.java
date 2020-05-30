@@ -14,7 +14,8 @@ import motor.entities.*;
 import motor.entities.Termino;
 
 public class Indexador {
-     private final String directorio = "C:\\Users\\Lenovo\\Documents\\NetBeansProjects\\MotorBusqueda5\\DLC\\documentos\\prueba\\";
+     //private final String directorio = "C:\\Users\\Lenovo\\Documents\\NetBeansProjects\\MotorBusqueda5\\DLC\\documentos\\prueba\\";
+    private final String directorio = "/home/mateo/Documentos/Facultad/DLC/TP/PruebaTP1/";
      private static Vocabulario voc = new Vocabulario();
      private static boolean a = false;
     public Indexador() 

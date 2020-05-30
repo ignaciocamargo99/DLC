@@ -16,6 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import motor.controller.Resultado;
+import motor.controller.Buscador;
+import motor.dal.DocumentoDAO;
 import motor.dal.PosteoDAO;
 import motor.entities.Posteo;
 
@@ -28,25 +30,28 @@ import motor.entities.Posteo;
 public class BuscadorEndpoint {
     
     private Resultado res;
+    @Inject DocumentoDAO documentoDAO;
     @Inject PosteoDAO posteoDAO;
     
     @PersistenceContext(unitName="JPA_PU")
     protected EntityManager entityManager;
     
     @GET
-    @Path("/{clave}")
+    @Path("/param/{clave}")
     @Produces("application/json")
     public Response buscarPorID(@PathParam("clave") String clave)
     {
-        String jpql = "SELECT d FROM Documento d WHERE d.nombreDoc = :nombre";
-        Query query = entityManager.createQuery(jpql); 
-        query.setParameter("nombre", clave);
-        List<Resultado> resultados = query.getResultList();
+        Buscador search = new Buscador();
+        System.out.println("clave: " + clave);
+        List<Resultado> resultados = search.buscar(clave, documentoDAO, posteoDAO);
+        System.out.println("Resultados: " +resultados);
         
         if(resultados.isEmpty())
         {
+            
             res = new Resultado("sin resultados", "null", -1);
             return Response.ok(res).build();
+            //return Response.status(Response.Status.NOT_FOUND).build();
             
         }
         else
@@ -66,7 +71,10 @@ public class BuscadorEndpoint {
         
         if(posts.isEmpty())
         {
-            return Response.ok("No hay nada por aca").build();
+            
+            res = new Resultado("sin resultados", "null", -1);
+            return Response.ok(res).build();
+            //return Response.status(Response.Status.NOT_FOUND).build();
             
         }
         else

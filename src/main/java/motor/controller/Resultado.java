@@ -86,7 +86,7 @@ public class Resultado implements Comparable<Resultado>{
 
     @Override
     public String toString() {
-        return "Resultado{" + "nomDoc=" + nomDoc + ", termino=" + termino + ", peso=" + peso + '}' + '\n';
+        return nomDoc + " terminos=[" + termino + "] \t peso=" + peso + '\n';
     }
 
     public void agregarTermino(String termino, int peso){

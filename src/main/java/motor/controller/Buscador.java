@@ -12,12 +12,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import motor.entities.Posteo;
 import motor.entities.Termino;
 import motor.controller.TSBHeap;
 import motor.controller.Resultado;
 import motor.dal.DocumentoDAO;
+import motor.dal.PosteoDAO;
 import motor.entities.Documento;
+import org.json.*;
 
 /**
  *
@@ -25,28 +29,23 @@ import motor.entities.Documento;
  */
 public class Buscador {
     
-    @Inject private Documento doc;
-    @Inject private DocumentoDAO documentoDAO;
-
     public Buscador() {
     }
     
-    static public int calcularPeso(int tf, int idf){
+    public int calcularPeso(int tf, int idf, DocumentoDAO documentoDAO){
         int n = 535;
-        /*
+        
         List<Documento> documentos = documentoDAO.findAll();
         n = documentos.size();
-        */
+        
         return (int)(tf * Math.log(n/idf));
     }
     
-    static public ArrayList<Resultado> buscar(String busqueda){ 
+    public ArrayList<Resultado> buscar(String busqueda, DocumentoDAO documentoDAO, PosteoDAO posteoDAO){ 
         //separa por espacios y crea array
-        //String palabras[] = cadena.split("\\s+");
         String []terminos = busqueda.split("'*[^\\p{IsAlphabetic}']+'*");
         
         ArrayList<Resultado> resultados = new ArrayList();
-        //TSBHeap<Resultado> heap = new TSBHeap();
        
         for (String t : terminos) {
             t = t.toLowerCase();
@@ -56,59 +55,51 @@ public class Buscador {
             
             //Realizar consula de posteos por Termino
             //llamar query...
+                       //tf, t.nombre, t.max_tf, t.idf, d.nombreDoc
+            JSONArray posteos = new JSONArray(posteoDAO.findByFilter("nombre", t));
+            System.out.println("************** " + posteos + " **************");
+            // Imprimir primer elemento del array
+            System.out.print("con JSONArray: " + new JSONArray(posteos.get(0).toString()).get(0));
             
             
-            ArrayList posteos = new ArrayList();
-            posteos.add("hola");
-            posteos.add("hola");
-            posteos.add("como");
-            posteos.add("estas");
-            posteos.add("?");
-            
-            int i = 0;
-            String a = "0";
-            
-            for (Object p : posteos) {
+            String bool = "";
+            //recorre los posteos
+            for(int j = 0; j < posteos.length(); j++){
+                JSONArray p = new JSONArray(posteos.get(j).toString());
+                
+                int tf = Integer.parseInt(p.get(0).toString());
+                String nombreTerm = p.get(1).toString();
+                int max_tf = Integer.parseInt(p.get(2).toString());
+                int idf = Integer.parseInt(p.get(3).toString());
+                String nombreDoc = p.get(4).toString();
+                
                 //supuestamente el max_tf sirve para descartar opciones de antemano y ahorrar procesamiento
-                if (/*(p.getTf/vocabulario.getMax_tf)>0.5*/true){
+                if ((double) tf / (double) max_tf > 0.33){
                     //comprobar si existe resultado para el documento del posteo i
                     Resultado aux;
-                    if (i%3 == 0){
-                        aux = new Resultado((String) p, "este no es t", calcularPeso(1, 1));
-                    } else {
-                         aux = new Resultado((String) p, t, calcularPeso(1, 1));
-                    }
-
+                    aux = new Resultado(nombreDoc, nombreTerm, calcularPeso(tf, idf, documentoDAO));
+                    System.out.println(nombreDoc);
+                    
                     if (!resultados.isEmpty() && resultados.contains(aux)){
                         //si existe calcular peso y usar metodo agregarTermino(termino, peso);
                         resultados.get(resultados.indexOf(aux)).agregarTermino(aux.getTermino().get(0), aux.getPeso());
 
-                        a = "False";
+                        bool = "False";
 
                     } else {
                         //sino calcular peso, crear nuevo resultado y agregar al heap
                         resultados.add(aux);
-                        a = "True";
+                        bool = "True";
                     }
 
-                    System.out.println(i + a);
-                    i++;
+                    System.out.println(j + bool);
                 }
 
                 Collections.sort(resultados);
-                /*
-                for (Resultado r : resultados){
-                    heap.add(r);
-                }
-                */
             }
         }
         
         return resultados;
 
-    }
-    
-    public static void main(String [] sax){
-        System.out.println(buscar("a, hoáTsFd"));
     }
 }
