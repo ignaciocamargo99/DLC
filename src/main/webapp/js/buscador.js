@@ -5,7 +5,7 @@ buscador.controller("busqueda_controller", function ($scope,$http){
     $scope.pantalla = "B";
     $scope.cadena = "";
     $scope.buscar = function(cadena){
-        $http({method:'GET', url: 'http://localhost:8080/DLC/api/search/param/' + cadena}).then(
+        $http({method:'GET', url: ('localhost:8080/DLC/api/search/param/' + cadena)}).then(
                 function successCallback(response){
                     $scope.container_results = response.data.container_results;
                     console.log(response);
@@ -14,7 +14,7 @@ buscador.controller("busqueda_controller", function ($scope,$http){
                     window.alert('Ocurrió un error.' + response.status);
                 }
             );    
-    }
-}
+    };
+});
 
 
