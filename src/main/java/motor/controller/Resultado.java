@@ -16,17 +16,28 @@ public class Resultado implements Comparable<Resultado>{
     private String nomDoc;
     private ArrayList<String> termino;
     private int peso = 0;
+    private String titulo;
 
     public Resultado() {
     }
 
     
-    public Resultado(String nomDoc, String termino, int peso) {
+    public Resultado(String nomDoc, String titulo, String termino, int peso) {
         this.nomDoc = nomDoc;
+        this.titulo = titulo;
         this.termino = new ArrayList();
         this.termino.add(termino);
         this.peso = peso;
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
 
     public String getNomDoc() {
         return nomDoc;
@@ -86,13 +97,13 @@ public class Resultado implements Comparable<Resultado>{
 
     @Override
     public String toString() {
-        return nomDoc + " terminos=[" + termino + "] \t peso=" + peso + '\n';
+        return nomDoc + " título = " + titulo + " terminos = [" + termino + "] \t peso = " + peso + '\n';
     }
 
     public void agregarTermino(String termino, int peso){
         if (!this.termino.contains(termino)){
             this.termino.add(termino);
-            peso += 10;
+            peso += peso*0.1;
         }
         
         this.acumularPeso(peso);

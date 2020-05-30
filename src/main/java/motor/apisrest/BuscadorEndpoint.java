@@ -49,7 +49,7 @@ public class BuscadorEndpoint {
         if(resultados.isEmpty())
         {
             
-            res = new Resultado("sin resultados", "null", -1);
+            res = new Resultado("nada.txt", "sin resultados", "null", -1);
             return Response.ok(res).build();
             //return Response.status(Response.Status.NOT_FOUND).build();
             
@@ -72,7 +72,7 @@ public class BuscadorEndpoint {
         if(posts.isEmpty())
         {
             
-            res = new Resultado("sin resultados", "null", -1);
+            res = new Resultado("nada.txt", "sin resultados", "null", -1);
             return Response.ok(res).build();
             //return Response.status(Response.Status.NOT_FOUND).build();
             

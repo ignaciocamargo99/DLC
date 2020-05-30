@@ -55,9 +55,12 @@ public class Buscador {
             
             //Realizar consula de posteos por Termino
             //llamar query...
-                       //tf, t.nombre, t.max_tf, t.idf, d.nombreDoc
+                       //tf, t.nombre, t.max_tf, t.idf, d.nombreDoc, d.titulo
             JSONArray posteos = new JSONArray(posteoDAO.findByFilter("nombre", t));
-            System.out.println("************** " + posteos + " **************");
+            if (posteos.length() == 0){
+                continue;
+            }
+            
             // Imprimir primer elemento del array
             System.out.print("con JSONArray: " + new JSONArray(posteos.get(0).toString()).get(0));
             
@@ -72,12 +75,13 @@ public class Buscador {
                 int max_tf = Integer.parseInt(p.get(2).toString());
                 int idf = Integer.parseInt(p.get(3).toString());
                 String nombreDoc = p.get(4).toString();
+                String titulo = p.get(5).toString();
                 
                 //supuestamente el max_tf sirve para descartar opciones de antemano y ahorrar procesamiento
                 if ((double) tf / (double) max_tf > 0.33){
                     //comprobar si existe resultado para el documento del posteo i
                     Resultado aux;
-                    aux = new Resultado(nombreDoc, nombreTerm, calcularPeso(tf, idf, documentoDAO));
+                    aux = new Resultado(nombreDoc, titulo, nombreTerm, calcularPeso(tf, idf, documentoDAO));
                     System.out.println(nombreDoc);
                     
                     if (!resultados.isEmpty() && resultados.contains(aux)){

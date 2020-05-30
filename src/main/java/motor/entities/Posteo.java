@@ -27,7 +27,7 @@ import motor.commons.dal.DalEntity;
 
 @NamedQueries(
     {
-        @NamedQuery(name = "Posteo.findByFilter", query = "SELECT p.tf, t.nombre, t.max_tf, t.idf, d.nombreDoc FROM Posteo p"
+        @NamedQuery(name = "Posteo.findByFilter", query = "SELECT p.tf, t.nombre, t.max_tf, t.idf, d.nombreDoc, d.titulo FROM Posteo p"
                                                         + " JOIN Termino t"
                                                         + " JOIN Documento d"
                                                         + " WHERE t.id_termino = p.id_termino AND d.id_documento = p.id_documento AND t.nombre = :nombre"),
