@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="buscador">
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,7 +30,7 @@
                                    name="cadena"
                                    required class="form-control mr-sm-2" 
                                    ng-minlength="1" placeholder="Buscar" />
-                            <button ng-click="buscar(cadena)"; class="btn btn-primary" ng-disabled="frm_busqueda.$invalid"><i class="fa fa-search"></i> Buscar</button>
+                            <button ng-click="buscar(cadena);" class="btn btn-primary" ng-disabled="frm_busqueda.$invalid"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </form>
                 </div>
@@ -39,14 +39,15 @@
             <div id="container_results">
                 <div class="row justify-content-md-center" ng-repeat="results in container_results">
                     <div class="col-12">
+                        <div class="flex-column bg-dark text-white pl-1 pr-1 font-weight-bold"> {{$index + 1}} </div>
                         <div class="flex-column">
                             <ul>
-                                <li class="list-group-item list-group-item-secondary"><strong>Titulo: </strong>{{results.doc.titulo}}</li>
-                                <li class="list-group-item"><strong>Nombre del documento: </strong>{{results.doc.nombreDoc}}</li>
+                                <li class="list-group-item list-group-item-secondary"><strong>Titulo: </strong>{{results}}</li>
+                                <li class="list-group-item"><strong>Nombre del documento: </strong>{{results.nombreDoc}}</li>
                                 <li class="list-group-item"><strong>Peso: </strong>{{results.peso}}</li>
                                 <li class="list-group-item">
-                                    <a href="api/doc/descargar/ {{results.doc.nombreArch}}">Descargar</a> - 
-                                    <a href="api/doc/ver/ {{results.doc.nombreArch}}"> Ver</a>
+                                    <a href="api/doc/descargar/ {{results.nombreArch}}">Descargar</a> - 
+                                    <a href="api/doc/ver/ {{results.nombreArch}}"> Ver</a>
                                 </li>
                             </ul>
                             <p />
