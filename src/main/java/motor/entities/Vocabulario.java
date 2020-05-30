@@ -70,7 +70,8 @@ public class Vocabulario {
     
     //Para ver... 
     public static void recuperarVocabulario(TerminoDAO term){
-        for (Termino t : term.findAll())
+        List<Termino> termin = term.findAll();
+        for (Termino t : termin)
         {
             terminos.put(t.getNombre(),t);
         }

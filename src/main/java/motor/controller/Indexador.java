@@ -34,6 +34,8 @@ public class Indexador {
     {
         File[] files = getArchivosDesde(directorio);
         HashSet<Documento> documentos = new HashSet<>();
+        voc.recuperarVocabulario(terminoDAO);
+
         for (File f : files) {
             String arch = f.getName();
             Scanner sc = new Scanner(f);
@@ -43,7 +45,7 @@ public class Indexador {
                 do 
                 {
                     titulo = sc.nextLine();
-                    System.out.println("titulo: " + titulo);
+                    //System.out.println("titulo: " + titulo);
                 }
                 while (titulo.length() < 2 && sc.hasNextLine());
             }
