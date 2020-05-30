@@ -39,7 +39,7 @@ public class BuscadorEndpoint {
     @GET
     @Path("/param/{clave}")
     @Produces("application/json")
-    public Response buscarPorID(@PathParam("clave") String clave)
+    public Response buscarPorClave(@PathParam("clave") String clave)
     {
         Buscador search = new Buscador();
         System.out.println("clave: " + clave);

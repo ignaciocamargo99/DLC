@@ -1,13 +1,13 @@
 // Definimos variable a usar
-var buscador = angular.module("buscador", []);
+buscador = angular.module("buscador", []);
 buscador.controller("busqueda_controller", function ($scope,$http){
-    $scope.container_results = [];
+    $scope.resultados=[];
     $scope.pantalla = "B";
     $scope.cadena = "";
     $scope.buscar = function(cadena){
-        $http({method:'GET', url: ('localhost:8080/DLC/api/search/param/' + cadena)}).then(
+        $http({method:'GET', url: 'api/search/param/' + cadena}).then(
                 function successCallback(response){
-                    $scope.container_results = response.data.container_results;
+                    $scope.resultados = response;
                     console.log(response);
                 },
                 function errorCallback(response){

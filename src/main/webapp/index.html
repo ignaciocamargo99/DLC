@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="css/all.css">
         <link rel="stylesheet" href="css/principal.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="js/buscador.js"></script>
+        <script src="js/angular.js"></script>
     </head>
     <body>
         <!-- Barra superior -->
@@ -35,25 +37,22 @@
                     </form>
                 </div>
             </div>
-            <p />
-            <div id="container_results">
-                <div class="row justify-content-md-center" ng-repeat="results in container_results">
-                    <div class="col-12">
-                        <div class="flex-column">
-                            <ul>
-                                <li class="list-group-item list-group-item-secondary"><strong>Titulo: </strong>{{results}}</li>
-                                <li class="list-group-item"><strong>Nombre del documento: </strong>{{results.nombreDoc}}</li>
-                                <li class="list-group-item"><strong>Peso: </strong>{{results.peso}}</li>
-                                <li class="list-group-item">
-                                    <a href="api/doc/descargar/ {{results.nombreArch}}">Descargar</a> - 
-                                    <a href="api/doc/ver/ {{results.nombreArch}}"> Ver</a>
-                                </li>
-                            </ul>
-                            <p />
-                        </div>
-                    </div>  
-                </div>  
+            <div id="resultadoscontainer">
+            <div class="resultado d-flex mt-1 mb-1" ng-repeat="resultado in resultados">
+                <div class="flex-column bg-dark text-white pl-1 pr-1 font-weight-bold"> {{$index + 1}} </div>
+                <div class="flex-column">
+                    <ul>
+                        <li>Título: {{resultado.doc.titulo}}</li>
+                        <li>Nombre de archivo: {{resultado.nombreArch}}</li>
+                        <li>Peso relativo de busqueda: {{resultado.doc.peso}}</li>
+                        <li>Descarga: <a href="{{resultado.doc.docPath}}">URI Local</a> -
+                            <a href="rest/documento/descargar/{{resultado.doc.nombreArch}}">Descarga</a> -
+                            <a href="rest/documento/ver/{{resultado.doc.nombreArch}}">Ver</a></li>
+                    </ul>
+                </div>
             </div>
+        </div>
+            
         </div>
     </body>
 </html>
