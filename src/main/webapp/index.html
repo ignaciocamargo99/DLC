@@ -42,12 +42,13 @@
                 <div class="flex-column bg-dark text-white pl-1 pr-1 font-weight-bold"> {{$index + 1}} </div>
                 <div class="flex-column">
                     <ul>
-                        <li>Título: {{resultado.doc.titulo}}</li>
-                        <li>Nombre de archivo: {{resultado.nombreArch}}</li>
-                        <li>Peso relativo de busqueda: {{resultado.doc.peso}}</li>
-                        <li>Descarga: <a href="{{resultado.doc.docPath}}">URI Local</a> -
-                            <a href="rest/documento/descargar/{{resultado.doc.nombreArch}}">Descarga</a> -
-                            <a href="rest/documento/ver/{{resultado.doc.nombreArch}}">Ver</a></li>
+                        <li>Título: {{resultado.titulo}}</li>
+                        <li>Nombre de archivo: {{resultado.nomDoc}}</li>
+                        <li>Terminos: {{resultado.terminos}}</li>
+                        <li>Peso relativo de busqueda: {{resultado.peso}}</li>
+                        <li>Descarga: <a href="{{resultado.nomDoc}}">URI Local</a> -
+                            <a href="rest/documento/descargar/{{resultado.nomDoc}}">Descarga</a> -
+                            <a href="rest/documento/ver/{{resultado.nomDoc}}">Ver</a></li>
                     </ul>
                 </div>
             </div>
