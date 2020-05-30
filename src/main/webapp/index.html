@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/all.css">
         <link rel="stylesheet" href="css/principal.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
-        
+        <script src="js/buscador.js"></script>
     </head>
     <body>
         <!-- Barra superior -->
@@ -26,11 +26,11 @@
                     <form name="frm_busqueda">
                         <div class="input-group">
                             <input type="text"
-                                   ng-model="stringBusqueda"
-                                   name="stringBusqueda"
+                                   ng-model="cadena"
+                                   name="cadena"
                                    required class="form-control mr-sm-2" 
                                    ng-minlength="1" placeholder="Buscar" />
-                            <button ng-click="buscar(stringBusqueda)"; class="btn btn-primary" ng-disabled="frm_busqueda.$invalid"><i class="fa fa-search"></i> Buscar</button>
+                            <button ng-click="buscar(cadena)"; class="btn btn-primary" ng-disabled="frm_busqueda.$invalid"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </form>
                 </div>
@@ -41,25 +41,19 @@
                     <div class="col-12">
                         <div class="flex-column">
                             <ul>
-                                <li class="list-group-item list-group-item-secondary"><strong>Titulo: </strong></li>
-                                <li class="list-group-item"><strong>Nombre del documento: </strong></li>
-                                <li class="list-group-item"><strong>Peso: </strong></li>
-                                <li class="list-group-item"><strong>Descarga: </strong></li>
+                                <li class="list-group-item list-group-item-secondary"><strong>Titulo: </strong>{{results.doc.titulo}}</li>
+                                <li class="list-group-item"><strong>Nombre del documento: </strong>{{results.doc.nombreDoc}}</li>
+                                <li class="list-group-item"><strong>Peso: </strong>{{results.peso}}</li>
+                                <li class="list-group-item">
+                                    <a href="api/doc/descargar/ {{results.doc.nombreArch}}">Descargar</a> - 
+                                    <a href="api/doc/ver/ {{results.doc.nombreArch}}"> Ver</a>
+                                </li>
                             </ul>
+                            <p />
                         </div>
                     </div>  
-                </div>
-                    
-                
-                
+                </div>  
             </div>
-            
-            
-            
         </div>
-
-        
-
-        
     </body>
 </html>
