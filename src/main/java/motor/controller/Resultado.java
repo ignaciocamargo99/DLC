@@ -106,14 +106,15 @@ public class Resultado implements Comparable<Resultado>{
     }
 
     /**
-     * si encuentra un nuevo termino para este resultado lo agrega a termino y le suma el peso para ese termino + el 10% del mismo
+     * si encuentra un nuevo término para este resultado lo agrega a término y le suma el peso
+     * para ese término + el mismo dividido la cantidad de documentos en la que aparecio
      * @param termino
      * @param peso 
      */
-    public void agregarTermino(String termino, int peso){
+    public void agregarTermino(String termino, int peso, int idf){
         if (!this.termino.contains(termino)){
             this.termino.add(termino);
-            peso += peso*0.1;
+            peso += peso/idf;
         }
         
         this.acumularPeso(peso);

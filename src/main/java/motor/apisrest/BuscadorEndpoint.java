@@ -5,6 +5,7 @@
  */
 package motor.apisrest;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -38,7 +39,7 @@ public class BuscadorEndpoint {
     
     /**
      * 
-     * @param clave palabras/terminos que se desean buscar en los documentos
+     * @param clave palabras/términos que se desean buscar en los documentos
      * @return  lista de objetos Resultado con los documentos que se encontraron que correspondan con la clave especificada
      */
     @GET
@@ -54,8 +55,12 @@ public class BuscadorEndpoint {
         if(resultados.isEmpty())
         {
             
-            res = new Resultado("nada.txt", "sin resultados", "null", -1);
-            return Response.ok(res).build();
+            res = new Resultado("nada.txt", "sin resultados", "no se encontro el término", -1);
+            
+            List<Resultado> notFound = new ArrayList<Resultado>();
+            notFound.add(res);
+            
+            return Response.ok(notFound).build();
             
         }
         else

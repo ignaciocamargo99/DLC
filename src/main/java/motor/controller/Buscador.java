@@ -37,15 +37,15 @@ public class Buscador {
         List<Documento> documentos = documentoDAO.findAll();
         n = documentos.size();
         
-        return (int)(tf * Math.log(n/idf));
+        return (int)(tf * Math.pow(Math.log(n/idf), 4));
     }
     
     /**
-     * busca los terminos dentro de la cadena busqueda dentro de la base de datos
+     * busca los términos dentro de la cadena busqueda dentro de la base de datos
      * @param busqueda palabras/termino a buscar
      * @param documentoDAO
      * @param posteoDAO
-     * @return lista de objetos Resultado con los resultados de la busqueda de los terminos ingresados por parametros
+     * @return lista de objetos Resultado con los resultados de la busqueda de los términos ingresados por parametros
      */
     public ArrayList<Resultado> buscar(String busqueda, DocumentoDAO documentoDAO, PosteoDAO posteoDAO){ 
         //separa la cadena ingresada y crea array
@@ -53,16 +53,25 @@ public class Buscador {
         
         ArrayList<Resultado> resultados = new ArrayList();
        
+        ArrayList<String> procesados = new ArrayList();
+        
         for (String t : terminos) {
             t = t.toLowerCase();
             
             //Imprime las palabras de la busqueda
             System.out.println(t);
             
+            //si ya proceso el término cotinua con el siguiente
+            if (procesados.contains(t)){
+                continue;
+            } else {
+                procesados.add(t);
+            }
+            
             //Realizar consula de posteos por Termino
                        //tf, t.nombre, t.max_tf, t.idf, d.nombreDoc, d.titulo
             JSONArray posteos = new JSONArray(posteoDAO.findByFilter("nombre", t));
-            //Si no existen posteos para el termino actual pasa a procesar el siguiente termino
+            //Si no existen posteos para el término actual pasa a procesar el siguiente término
             if (posteos.length() == 0){
                 continue;
             }
@@ -86,7 +95,7 @@ public class Buscador {
                 
                 //utiliza el max_tf para descartar opciones de antemano y ahorrar procesamiento
                 //procesa los posteos cuyo tf sea mayor al 33% del max_tf del termino
-                if ((double) tf / (double) max_tf > 0.33){
+                if ((double) tf / (double) max_tf > 0.2){
                     //comprobar si existe resultado para el documento del posteo i
                     Resultado aux;
                     aux = new Resultado(nombreDoc, titulo, nombreTerm, calcularPeso(tf, idf, documentoDAO));
@@ -94,7 +103,7 @@ public class Buscador {
                     
                     if (!resultados.isEmpty() && resultados.contains(aux)){
                         //si existe calcular peso y usar metodo agregarTermino(termino, peso);
-                        resultados.get(resultados.indexOf(aux)).agregarTermino(aux.getTermino().get(0), aux.getPeso());
+                        resultados.get(resultados.indexOf(aux)).agregarTermino(aux.getTermino().get(0), aux.getPeso(), idf);
 
                         bool = "False";
 
