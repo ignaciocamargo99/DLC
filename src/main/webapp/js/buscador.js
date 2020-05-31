@@ -7,7 +7,7 @@ buscador.controller("busqueda_controller", function ($scope,$http){
     $scope.buscar = function(cadena){
         $http({method:'GET', url: 'api/search/param/' + cadena}).then(
                 function successCallback(response){
-                    $scope.resultados = response;
+                    $scope.resultados = response.data;
                     console.log(response);
                 },
                 function errorCallback(response){
