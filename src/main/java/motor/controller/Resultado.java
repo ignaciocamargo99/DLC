@@ -89,6 +89,11 @@ public class Resultado implements Comparable<Resultado>{
         return true;
     }
     
+    /**
+     * ordena los resultados de mayor a menor según el peso
+     * @param x
+     * @return 
+     */
     @Override
     public int compareTo(Resultado x)
     {
@@ -100,6 +105,11 @@ public class Resultado implements Comparable<Resultado>{
         return nomDoc + " título = " + titulo + " terminos = [" + termino + "] \t peso = " + peso + '\n';
     }
 
+    /**
+     * si encuentra un nuevo termino para este resultado lo agrega a termino y le suma el peso para ese termino + el 10% del mismo
+     * @param termino
+     * @param peso 
+     */
     public void agregarTermino(String termino, int peso){
         if (!this.termino.contains(termino)){
             this.termino.add(termino);
@@ -109,6 +119,10 @@ public class Resultado implements Comparable<Resultado>{
         this.acumularPeso(peso);
     }
     
+    /**
+     * suma al peso actual el peso calculado para el posteo que esta siendo procesado
+     * @param peso 
+     */
     private void acumularPeso(int peso) {
         this.peso += peso;
     }

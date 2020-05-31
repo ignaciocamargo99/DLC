@@ -5,18 +5,10 @@
  */
 package motor.controller;
 
-import java.io.FileNotFoundException;
-import java.sql.Array;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import motor.entities.Posteo;
-import motor.entities.Termino;
-import motor.controller.TSBHeap;
 import motor.controller.Resultado;
 import motor.dal.DocumentoDAO;
 import motor.dal.PosteoDAO;
@@ -25,13 +17,20 @@ import org.json.*;
 
 /**
  *
- * @author nacho
+ * @author mateo
  */
 public class Buscador {
     
     public Buscador() {
     }
     
+    /**
+     * calcula el peso del posteo
+     * @param tf
+     * @param idf
+     * @param documentoDAO
+     * @return int con el peso para un posteo particular
+     */
     public int calcularPeso(int tf, int idf, DocumentoDAO documentoDAO){
         int n = 535;
         
@@ -41,8 +40,15 @@ public class Buscador {
         return (int)(tf * Math.log(n/idf));
     }
     
+    /**
+     * busca los terminos dentro de la cadena busqueda dentro de la base de datos
+     * @param busqueda palabras/termino a buscar
+     * @param documentoDAO
+     * @param posteoDAO
+     * @return lista de objetos Resultado con los resultados de la busqueda de los terminos ingresados por parametros
+     */
     public ArrayList<Resultado> buscar(String busqueda, DocumentoDAO documentoDAO, PosteoDAO posteoDAO){ 
-        //separa por espacios y crea array
+        //separa la cadena ingresada y crea array
         String []terminos = busqueda.split("'*[^\\p{IsAlphabetic}']+'*");
         
         ArrayList<Resultado> resultados = new ArrayList();
@@ -54,9 +60,9 @@ public class Buscador {
             System.out.println(t);
             
             //Realizar consula de posteos por Termino
-            //llamar query...
                        //tf, t.nombre, t.max_tf, t.idf, d.nombreDoc, d.titulo
             JSONArray posteos = new JSONArray(posteoDAO.findByFilter("nombre", t));
+            //Si no existen posteos para el termino actual pasa a procesar el siguiente termino
             if (posteos.length() == 0){
                 continue;
             }
@@ -68,6 +74,7 @@ public class Buscador {
             String bool = "";
             //recorre los posteos
             for(int j = 0; j < posteos.length(); j++){
+                //toma los datos del posteo
                 JSONArray p = new JSONArray(posteos.get(j).toString());
                 
                 int tf = Integer.parseInt(p.get(0).toString());
@@ -77,7 +84,8 @@ public class Buscador {
                 String nombreDoc = p.get(4).toString();
                 String titulo = p.get(5).toString();
                 
-                //supuestamente el max_tf sirve para descartar opciones de antemano y ahorrar procesamiento
+                //utiliza el max_tf para descartar opciones de antemano y ahorrar procesamiento
+                //procesa los posteos cuyo tf sea mayor al 33% del max_tf del termino
                 if ((double) tf / (double) max_tf > 0.33){
                     //comprobar si existe resultado para el documento del posteo i
                     Resultado aux;

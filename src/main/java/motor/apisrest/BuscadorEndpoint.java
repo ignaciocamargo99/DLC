@@ -36,6 +36,11 @@ public class BuscadorEndpoint {
     @PersistenceContext(unitName="JPA_PU")
     protected EntityManager entityManager;
     
+    /**
+     * 
+     * @param clave palabras/terminos que se desean buscar en los documentos
+     * @return  lista de objetos Resultado con los documentos que se encontraron que correspondan con la clave especificada
+     */
     @GET
     @Path("/param/{clave}")
     @Produces("application/json")
@@ -51,38 +56,11 @@ public class BuscadorEndpoint {
             
             res = new Resultado("nada.txt", "sin resultados", "null", -1);
             return Response.ok(res).build();
-            //return Response.status(Response.Status.NOT_FOUND).build();
             
         }
         else
         {
             return Response.ok(resultados).build();
         }           
-    }
-    
-    
-    @GET
-    @Path("/prueba")
-    @Produces("application/json")
-    public Response buscarPorID()
-    {
-        // Recordar respetar el nombre que se pone en el namedQuery despues de los dos puntos
-        List<Posteo> posts = posteoDAO.findByFilter("nombre", "project");
-        
-        if(posts.isEmpty())
-        {
-            
-            res = new Resultado("nada.txt", "sin resultados", "null", -1);
-            return Response.ok(res).build();
-            //return Response.status(Response.Status.NOT_FOUND).build();
-            
-        }
-        else
-        {
-            return Response.ok(posts).build();
-        }           
-    }
-    
-    
-    
+    }    
 }

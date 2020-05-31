@@ -27,12 +27,10 @@ public class DocumentoEndpoint
         return Response.ok().build();
     }
     
-    @GET
-    @Path("/mensaje")
-    public Response hola() {
-        return Response.ok("*******WORKING-P1*******").build();
-    }
-    
+    /**
+     * 
+     * @return Lista con objetos de la clase Documento que tienen persistencia en la base de datos
+     */
     @GET
     @Path("/todos")
     @Produces("application/json")
@@ -53,6 +51,11 @@ public class DocumentoEndpoint
         }           
     }
     
+    /**
+     * 
+     * @param clave Nombre del documento que se desea buscar, por ejemplo: doc.txt
+     * @return Objeto de la clase Documento que cumpla con la condición de que su nombre sea igual a la clave especificada
+     */
     @GET
     @Path("/{clave}")
     @Produces("application/json")
@@ -76,6 +79,11 @@ public class DocumentoEndpoint
         }           
     }
     
+    /**
+     * 
+     * @param clave id de un documento en especifico que se encuentre en la base de datos
+     * @return Objeto de la clase Documento que cumpla con la condición de que su id sea igual a la clave especificada
+     */
     @GET
     @Path("/id/{clave}")
     @Produces("application/json")
