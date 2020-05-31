@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package motor.entities;
 
 import java.util.*;
+import javax.enterprise.context.ApplicationScoped;
 import motor.dal.TerminoDAO;
 
-/**
- *
- * @author Lenovo
- */
+@ApplicationScoped
 public class Vocabulario {
     //private static Vocabulario ourInstance = new Vocabulario();
     

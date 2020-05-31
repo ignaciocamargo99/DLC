@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="buscador">
     <head>
-        <title>Start Page</title>
+        <title>Inicio</title>
+        <link href="images/libro.ico" type="image/x-icon" rel="shortcut icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- CSS only -->
         <link rel="stylesheet" href="css/all.css">
@@ -45,21 +46,29 @@
                 <div class="row justify-content-md-center" ng-repeat="resultado in resultados">
                     <!--<div class="col-10 bg-dark text-white font-weight-bold"> {{$index + 1}} </div> -->
                     <div class="col-11">
-                        <ul>
-                            <li class="list-group-item list-group-item-secondary"><strong>{{$index + 1}}</strong></li>
+                        <ul class="list-group-flush">
+                            <li class="list-group-item list-group-item-info"><strong>{{$index + 1}}</strong></li>
                             <li class="list-group-item list-group"><strong>Título: </strong> {{resultado.titulo}}</li>
                             <li class="list-group-item"><strong>Nombre del documento: </strong> {{resultado.nomDoc}}</li>
                             <!-- <li>Terminos: {{resultado.terminos}}</li> -->
                             <li class="list-group-item"><strong>Peso de busqueda: </strong> {{resultado.peso}}</li>
-                            
                             <li class="list-group-item">
-                                <a href="rest/documento/descargar/{{resultado.nomDoc}}">Descargar</a> -
-                                <a href="rest/documento/ver/{{resultado.nomDoc}}">Ver</a>
+                                <a href="api/doc/descargar/{{resultado.nomDoc}}">Descargar</a> -
+                                <a href="api/doc/ver/{{resultado.nomDoc}}">Ver</a> - 
+                                <!-- Esta es otra forma de poder descargar el documento-->
+                                <a href="DocumentosIndexados/{{resultado.nomDoc}}" download="{{resultado.nomDoc}}">Prueba de descarga</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <footer class="container-fluid bg-dark fixed-bottom">
+            <div class="text-white">
+                Camargo,Ignacio - Coronel, Ayelén - Reyes, Mateo<br/>
+                <p />
+                <span class="small">Ciclo 2020</span>
+            </div>
+        </footer>
     </body>
 </html>
