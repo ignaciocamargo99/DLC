@@ -7,6 +7,7 @@ import motor.dal.TerminoDAO;
 
 @ApplicationScoped
 public class Vocabulario {
+    
     private static Hashtable <String,Termino> terminos = new Hashtable <String,Termino>();
 
     public static Hashtable<String, Termino> getTerminos() {
@@ -63,10 +64,12 @@ public class Vocabulario {
             terminos.put(t.getNombre(),t);
         }
     }
+    
     public static void addIdf(String t)
     {
         getTerminos().get(t).setIdf(getTerminos().get(t).getIdf()+1);
     }
+    
     public static void actualizarMaxTf(String t, int n)
     {
         getTerminos().get(t).actMax_tf(n);

@@ -85,15 +85,17 @@ public class Indexador {
      * @param terminoDAO
      * @param posteoDAO
      */
-    public void postearArchivo(Documento doc,TerminoDAO terminoDAO,PosteoDAO posteoDAO){
-        
-        File arch = new File(directorio + doc.getNombreDoc());     
+    public void postearArchivo(Documento doc,TerminoDAO terminoDAO,PosteoDAO posteoDAO){  
+
+        File arch = new File(directorio + doc.getNombreDoc());
         try (Scanner sc = new Scanner(arch, "ISO-8859-1")) {
+            // El delimitador siguiente toma palabras con apóstrofe en medio
             sc.useDelimiter("'*[^\\p{IsAlphabetic}']+'*");
-            // Definimos una lista de terminos con posteos x documento
+            // Definimos los terminos y posteos del Documento
             Hashtable<String, Termino> terminosDocumento = new Hashtable<String, Termino>();
             Hashtable<String,Posteo > posteosDocumento = new Hashtable<>();
             //Bucle por palabra de un documento
+            //Por cada palabra...
             while (sc.hasNext()) {
                 String pal = sc.next().toLowerCase(); 
                 Termino termino = null;
@@ -102,7 +104,6 @@ public class Indexador {
                     if (!voc.getTerminos().containsKey(pal)) {
                         //Aparece por primera vez en el documento                  
                        termino = new Termino(pal);
-                        //Se agrega solo la palabra;
                         Termino newInstance = terminoDAO.create(termino);
                         voc.getTerminos().put(pal, newInstance);
                         terminosDocumento.put(pal, newInstance);
@@ -112,22 +113,24 @@ public class Indexador {
                     if (posteosDocumento.containsKey(pal)) {
                         //Aumento la cant de veces que aparece en el documento
                         posteosDocumento.get(pal).setTf(posteosDocumento.get(pal).getTf() + 1);
-                    } else {
-                        //Lo agrego a la lista                                       
-                        posteosDocumento.put(pal, new Posteo(doc.getId_documento(),voc.getTerminos().get(pal).getId_termino(),1));
-                    }               
+                    } 
+                    else 
+                    {
+                        //Lo agrego a la lista...
+                        posteosDocumento.put(pal, new Posteo(doc.getId_documento(),voc.getTerminos().get(pal).getId_termino(),1));              
+
+                    }
                 }
             }
-            for (String n : posteosDocumento.keySet()) 
-            {
+            for (String n : posteosDocumento.keySet()) {
+                //Sumo a cada termino su IDF uno,
                 voc.addIdf(n);
                 voc.getTerminos().put(n, voc.getTerminos().get(n));
                 voc.actualizarMaxTf(n, posteosDocumento.get(n).getTf());
                 terminoDAO.update(voc.getTerminos().get(n));
             }
             //Persistencia
-            for (Posteo posteo : posteosDocumento.values() ) 
-            {
+            for (Posteo posteo : posteosDocumento.values() ) {
                 
                 Posteo newIns = posteoDAO.create(posteo);
             }           
