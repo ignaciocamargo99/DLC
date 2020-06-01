@@ -18,6 +18,11 @@ public class IndexEndpoint
     @Inject private TerminoDAO terminoDAO;
     @Inject private PosteoDAO posteoDAO;
     
+     /**
+     * 
+     * la api realiza la indexación de todos los documentos, terminos y posteos
+     * @return lista de objetos Documento con los documentos que se indexaron 
+     */
     @GET
     public Response indexar() throws FileNotFoundException
     {

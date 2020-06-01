@@ -23,8 +23,7 @@ public class Buscador {
      * @return int con el peso para un posteo particular
      */
     public int calcularPeso(int tf, int idf, DocumentoDAO documentoDAO){
-        int n = 535;
-        
+        int n = 0;       
         List<Documento> documentos = documentoDAO.findAll();
         n = documentos.size();
         
@@ -99,7 +98,7 @@ public class Buscador {
                         bool = "False";
 
                     } else {
-                        //sino calcular peso, crear nuevo resultado y agregar al heap
+                        //sino calcular peso, crear nuevo resultado y agregar al array
                         resultados.add(aux);
                         bool = "True";
                     }

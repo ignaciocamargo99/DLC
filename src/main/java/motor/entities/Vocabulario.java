@@ -7,12 +7,6 @@ import motor.dal.TerminoDAO;
 
 @ApplicationScoped
 public class Vocabulario {
-    //private static Vocabulario ourInstance = new Vocabulario();
-    
-    /*public static Vocabulario getInstance() {
-        return ourInstance;
-    }
-    */
     private static Hashtable <String,Termino> terminos = new Hashtable <String,Termino>();
 
     public static Hashtable<String, Termino> getTerminos() {
