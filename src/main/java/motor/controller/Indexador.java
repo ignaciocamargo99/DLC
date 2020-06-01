@@ -61,15 +61,12 @@ public class Indexador {
 
                 documentos.add(newInstance);
                 postearArchivo(newInstance, terminoDAO, posteoDAO);
-                //System.out.println(newInstance);
             } 
             else 
             {
                 System.out.println("...---...El archivo ya existe en la base de datos...---...");
-                //postearArchivo();
             }
             
-            //break;
         } 
         return documentos;
     }
@@ -78,82 +75,47 @@ public class Indexador {
     public void postearArchivo(Documento doc,TerminoDAO terminoDAO,PosteoDAO posteoDAO){
         
         File arch = new File(directorio + doc.getNombreDoc());
-        //System.out.println("ruta: " + arch.getAbsolutePath());        
         try (Scanner sc = new Scanner(arch, "ISO-8859-1")) {
             // El delimitador siguiente toma palabras con apóstrofe en medio
-            // (por ejemplo O'Higgings, didn't) que a nuestro criterio forman parte de la palabra.
             sc.useDelimiter("'*[^\\p{IsAlphabetic}']+'*");
-            // Definimos una lista de terminos con posteos x documento
+            // Definimos los terminos y posteos del Documento
             Hashtable<String, Termino> terminosDocumento = new Hashtable<String, Termino>();
             Hashtable<String,Posteo > posteosDocumento = new Hashtable<>();
-            //key Integer: palabra del termino
-            //value Posteo: Posteo(con un tf y una referencia a un documento)
-            //Bucle por palabra
+            //Por cada palabra...
             while (sc.hasNext()) {
                 String pal = sc.next().toLowerCase();  //Convertimos a minusculas
-                //System.out.println("termino: " + pal);
                 Termino termino = null;
                 if (!pal.equals("")) {
                     //Controlo si ya lo agregué
                     if (!voc.getTerminos().containsKey(pal)) {
                         //Aparece por primera vez en el documento,
-                        
-                      
-                        //terminosDocumento.put(pal, new Termino(pal));
-                        
                         termino = new Termino(pal);
-                        //Se agrego solo la palabra;
                         Termino newInstance = terminoDAO.create(termino);
                         voc.getTerminos().put(pal, newInstance);
                         terminosDocumento.put(pal, newInstance);
-                        
-                       // System.out.println(newInstance);
                    }
-                    //Si ya esta agregado, debería aumentar la cant de veces que aparece en el documento...
-
-                    
-                    
-                    
                     //Controlo si ya esta posteado...
                     if (posteosDocumento.containsKey(pal)) {
                         //Aumento la cant de veces que aparece en el doc
                         posteosDocumento.get(pal).setTf(posteosDocumento.get(pal).getTf() + 1);
                     } else {
                         //Lo agrego a la lista...
-                  
-                        
                         posteosDocumento.put(pal, new Posteo(doc.getId_documento(),voc.getTerminos().get(pal).getId_termino(),1));
-                        //System.out.println("Agregado");
                     }
-                
                 }
             }
             
-            
-            //CORREGIR!!!!!!!!!!
             long cantTerminosDoc = (posteosDocumento.size());
             for (String n : posteosDocumento.keySet()) {
                 //Sumo a cada termino su IDF uno,
-                //termino.setIdf(termino.getIdf()+1);
-                //voc.getTerminos().get(termino.getNombre()).setIdf(voc.getTerminos().get(termino.getNombre()).getIdf()+1);
-                //Ver como conviente a Long un INT
                 voc.addIdf(n);
-                //if (voc.getTerminos().contains)
-                //Termino t = terminoDAO.create(voc.getTerminos().get(n));
                 voc.getTerminos().put(n, voc.getTerminos().get(n));
                 voc.actualizarMaxTf(n, posteosDocumento.get(n).getTf());
                 
                 terminoDAO.update(voc.getTerminos().get(n));
                 
-                
-                //long id = (t.getId_termino());
-                //voc.getTerminos().get(termino.getNombre()).setId_termino(id);
-                //posteosDocumento.get(termino.getNombre()).setId_termino(id);
-                //posteoDAO.create(posteosDocumento.get(termino.getNombre()));
-                //Actualizo su maxTF
-                //Vocabulario.refreshMaxTf(pala, posteosDocumento.get(pala).getTf());
             }
-            //Persistencia
+            
             for (Posteo posteo : posteosDocumento.values() ) {
                 
                 Posteo newIns = posteoDAO.create(posteo);
