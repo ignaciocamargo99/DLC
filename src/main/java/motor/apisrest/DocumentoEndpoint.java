@@ -1,5 +1,7 @@
 package motor.apisrest;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -106,5 +108,38 @@ public class DocumentoEndpoint
         {
             return Response.ok(documentos).build();
         }           
-    } 
+    }
+    
+     /**
+     * 
+     * @param nombreDoc nombre de un documento en especifico que se encuentra en una carpeta local.
+     * @return Objeto de la clase File que devuelva el documento para su descarga.
+     */
+    @GET
+    @Path("/descargar/{nombreDoc}")
+    @Produces("application/octetstream")
+    public Response descargar(@PathParam("nombreDoc") String nombreDoc) throws Exception
+    {
+        // Obtenemos el path del documento de forma local
+        java.nio.file.Path doc = Paths.get("C:\\Users\\nacho\\Desktop\\DLC\\DocumentosIndexados\\" + nombreDoc);
+        File f = new File(doc.toString());
+        return Response.ok(f).header("content-disposition", "attachment; filename =" + f.getName()).build();
+    }
+    
+     /**
+     * 
+     * @param nombreDoc nombre de un documento en especifico que se encuentra en una carpeta local.
+     * @return Objeto de la clase File que devuelva el documento para ver su contenido.
+     */
+    @GET
+    @Path("/ver/{nombreDoc}")
+    @Produces("text/plain")
+    public Response ver(@PathParam("nombreDoc") String nombreDoc) throws Exception
+    {
+        // Obtenemos el path del documento de forma local
+        java.nio.file.Path doc = Paths.get("C:\\Users\\nacho\\Desktop\\DLC\\DocumentosIndexados\\" + nombreDoc);
+        File f = new File(doc.toString());
+        return Response.ok(f).build();
+    }
+    
 }

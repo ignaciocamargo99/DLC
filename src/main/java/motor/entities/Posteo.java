@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package motor.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,7 +14,7 @@ import motor.commons.dal.DalEntity;
 
 @Entity
 @Table(name = "posteos")
-//@IdClass(PosteoPK.class)
+@IdClass(PosteoPK.class)
 
 @NamedQueries(
     {
@@ -31,35 +22,17 @@ import motor.commons.dal.DalEntity;
                                                         + " JOIN Termino t"
                                                         + " JOIN Documento d"
                                                         + " WHERE t.id_termino = p.id_termino AND d.id_documento = p.id_documento AND t.nombre = :nombre"),
-//        @NamedQuery(name = "Posteo.findById", query = "SELECT p.* FROM Posteo p WHERE m.id_termino = :id_termino AND m.id_documento = :id_documento"),
    })
 public class Posteo implements Serializable, DalEntity 
 {
     private static final long serialVersionUID = 1L;
-
-//    @Id
-//    //@Column(name = "id_termino")
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "id_termino")
-//    private Termino termino;
-//    
-//    @Id
-//    //@Column(name = "id_documento")
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "id_documento")
-//    private Documento documento;
-    
     
     @Id
     @Column(name = "id_documento")
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "id_documento")
     private Long id_documento;
     
     @Id
     @Column(name = "id_termino")
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "id_termino")
     private Long id_termino;
 
     @Column(name = "tf")

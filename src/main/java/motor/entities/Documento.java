@@ -24,7 +24,6 @@ public class Documento implements Serializable, DalEntity
 {
     private static final long serialVersionUID = 1L;
     
-    // Definición de atributos y persistencia con BD
     @Id
     @Column(name = "id_documento")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +34,7 @@ public class Documento implements Serializable, DalEntity
     @Column(name="titulo")
     private String titulo;
    
-    //private HashSet<Posteo> documentoSet;
-    
-    // Constructores
+
     public Documento()
     {
         
@@ -47,23 +44,20 @@ public class Documento implements Serializable, DalEntity
     {
         this.id_documento = id_documento;
         this.nombreDoc = nombreDoc;
-        //this.documentoSet = documentoSet;
     }
     
     public Documento(long id_documento, String nombreDoc) 
     {
         this.id_documento = id_documento;
         this.nombreDoc = nombreDoc;
-        //this.documentoSet = new HashSet<>();
     }
     
     public Documento(String titulo, String nombreDoc) 
     {
         this.titulo = titulo;
         this.nombreDoc = nombreDoc;
-        //this.documentoSet = new HashSet<>();
     }
-    // Getter y setters
+
     public long getId_documento() {
         return id_documento;
     }
@@ -72,9 +66,6 @@ public class Documento implements Serializable, DalEntity
         return nombreDoc;
     }
 
-    //public HashSet<Posteo> getDocumentoSet() {
-    //    return documentoSet;
-    //}
 
     public void setId_documento(long id_documento) {
         this.id_documento = id_documento;
@@ -83,10 +74,6 @@ public class Documento implements Serializable, DalEntity
     public void setNombreDoc(String nombreDoc) {
         this.nombreDoc = nombreDoc;
     }
-
-    //public void setDocumentoSet(HashSet<Posteo> documentoSet) {
-    //    this.documentoSet = documentoSet;
-    //}
 
     public String getTitulo() {
         return titulo;
@@ -97,23 +84,18 @@ public class Documento implements Serializable, DalEntity
     }
     
 
-    // To string
     @Override
     public String toString() {
         return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc;
-        //return "Documento{" + "id_documento=" + id_documento + ", nombreDoc=" + nombreDoc + ", documentoSet=" + documentoSet + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        //hash = 29 * hash + (int) (this.id_documento ^ (this.id_documento >>> 32));
         hash = 29 * hash + Objects.hashCode(this.nombreDoc);
-        //hash = 29 * hash + Objects.hashCode(this.documentoSet);
         return hash;
     }
     
-    // Equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -126,21 +108,16 @@ public class Documento implements Serializable, DalEntity
             return false;
         }
         final Documento other = (Documento) obj;
-        /*if (this.id_documento != other.id_documento) {
-            return false;
-        }*/
+
         if (!Objects.equals(this.nombreDoc, other.nombreDoc)) {
             return false;
         }
-        //if (!Objects.equals(this.documentoSet, other.documentoSet)) {
-        //    return false;
-        //}
+
         return true;
     }
 
-    // Clone
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+        return super.clone(); 
     }        
 }

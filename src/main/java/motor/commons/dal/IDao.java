@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package motor.commons.dal;
 import java.util.List;
 /**
@@ -11,7 +7,6 @@ import java.util.List;
  *
  * @param <E> Entidad para la cual se implementa el presente dao
  * @param <K> Clave de la entidad representada por el dao
- * @author nacho
  */
 public interface IDao<E extends DalEntity, K> 
 {

@@ -4,15 +4,16 @@
         <title>Inicio</title>
         <link href="images/libro.ico" type="image/x-icon" rel="shortcut icon">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- CSS only -->
         <link rel="stylesheet" href="css/all.css">
-        <link rel="stylesheet" href="css/principal.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="js/buscador.js"></script>
         <script src="js/angular.js"></script>
         <style>
             body { background-color: #F1F1F1; }
+        </style>
+        <style>
+            footer{ clear: both; }
         </style>
     </head>
     <body>
@@ -44,7 +45,6 @@
             <p />
             <div id="resultadoscontainer">
                 <div class="row justify-content-md-center" ng-repeat="resultado in resultados">
-                    <!--<div class="col-10 bg-dark text-white font-weight-bold"> {{$index + 1}} </div> -->
                     <div class="col-11">
                         <ul class="list-group-flush">
                             <li class="list-group-item list-group-item-info"><strong>{{$index + 1}}</strong></li>
@@ -54,15 +54,14 @@
                             <li class="list-group-item"><strong>Peso de busqueda: </strong> {{resultado.peso}}</li>
                             <li class="list-group-item">
                                 <a href="api/doc/descargar/{{resultado.nomDoc}}">Descargar</a> -
-                                <a href="api/doc/ver/{{resultado.nomDoc}}">Ver</a> - 
-                                <!-- Esta es otra forma de poder descargar el documento-->
-                                <a href="DocumentosIndexados/{{resultado.nomDoc}}" download="{{resultado.nomDoc}}">Prueba de descarga</a>
+                                <a href="api/doc/ver/{{resultado.nomDoc}}" target="_blank">Ver</a> 
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <br /> <br /> <br />
         <footer class="container-fluid bg-dark fixed-bottom">
             <div class="text-white">
                 Camargo,Ignacio - Coronel, Ayelén - Reyes, Mateo<br/>

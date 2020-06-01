@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package motor.apisrest;
 
 import java.util.ArrayList;
@@ -20,12 +16,7 @@ import motor.controller.Resultado;
 import motor.controller.Buscador;
 import motor.dal.DocumentoDAO;
 import motor.dal.PosteoDAO;
-import motor.entities.Posteo;
 
-/**
- *
- * @author mateo
- */
 
 @Path("/search")
 public class BuscadorEndpoint {

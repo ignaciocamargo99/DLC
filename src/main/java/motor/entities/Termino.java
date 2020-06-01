@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package motor.entities;
 
 import java.io.Serializable;
@@ -42,11 +38,6 @@ public class Termino implements Serializable, DalEntity
     @Column(name = "max_tf")
     private int max_tf;
     
-    
-    //private HashSet<Posteo> posteoSet;
-    
-    //Constructores...
-    
     public Termino() {
     }
     
@@ -55,7 +46,6 @@ public class Termino implements Serializable, DalEntity
         this.nombre= palabra;
         this.idf = nr;
         this.max_tf = maxtf;
-        //this.posteoSet = posteoSet;
     }
     
     public Termino(long idPalabra, String palabra, int nr, int maxtf){
@@ -63,7 +53,6 @@ public class Termino implements Serializable, DalEntity
         this.nombre= palabra;
         this.idf = nr;
         this.max_tf = maxtf;
-        //this.posteoSet = new HashSet<>();
     }
     
     public Termino(long idPalabra, String palabra){
@@ -71,7 +60,6 @@ public class Termino implements Serializable, DalEntity
         this.nombre = palabra;
         this.idf= 1;
         this.max_tf = 0;
-        //this.posteoSet= new HashSet<>();
     }
     public Termino(String palabra){
         this.id_termino = (long)-1;
@@ -151,6 +139,4 @@ public class Termino implements Serializable, DalEntity
             max_tf =n;
         }
     }
-    
-    
 }
